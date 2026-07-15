@@ -1,0 +1,7 @@
+[
+  {
+    "_schema": "event/v1",
+    "_note": "Phase 8 填充环境/随机/纪录片事件",
+    "_fields": ["id", "type", "trigger", "title", "description", "audio", "visual", "action"]
+  }
+]

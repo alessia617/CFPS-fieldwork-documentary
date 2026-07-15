@@ -1,0 +1,162 @@
+{
+  "_schema": "field_events/v1",
+  "_note": "田野环境事件 — 模拟 CFPS 访员在农村寻找家户过程中的真实偶然经历。不扣血、不惩罚、不阻断。",
+
+  "events": [
+    {
+      "id": "dog_bark",
+      "type": "environmental",
+      "trigger": {
+        "eligibleNodes": ["old_housing", "target_near", "east_housing", "west_old_area", "new_housing"],
+        "probability": 0.35,
+        "minStep": 2
+      },
+      "narrative": {
+        "title": "狗叫",
+        "body": "刚靠近一户人家，院子里的狗突然叫了起来。",
+        "innerThought": "被吓了一跳，停在门口。",
+        "afterThought": "里面有人吗？",
+        "journal": "接近陌生院落时，院子里的狗吠了一声。这是农村入户调查的日常。"
+      },
+      "visual": {
+        "effect": "shake",
+        "intensity": "light",
+        "overlay": "dust"
+      },
+      "duration": 4000
+    },
+
+    {
+      "id": "chicken_cross",
+      "type": "environmental",
+      "trigger": {
+        "eligibleNodes": ["entrance", "drying_field", "farmland_east", "farmland_west", "farmland_path"],
+        "probability": 0.25,
+        "minStep": 1
+      },
+      "narrative": {
+        "title": "鸡群穿过",
+        "body": "几只鸡从路边窜过，挡住了去路。",
+        "innerThought": "等它们过去。",
+        "afterThought": "农村道路经常被各种生活痕迹占据。",
+        "journal": "几只鸡从路边跑过。在农村行走，动物比人更熟悉路。"
+      },
+      "visual": {
+        "effect": "none",
+        "intensity": "none"
+      },
+      "duration": 3500
+    },
+
+    {
+      "id": "sun_exposure",
+      "type": "physical",
+      "trigger": {
+        "eligibleNodes": ["entrance", "farmland_east", "farmland_west", "farmland_path", "drying_field", "committee"],
+        "probability": 0.3,
+        "minStep": 3
+      },
+      "narrative": {
+        "title": "暴晒",
+        "body": "下午的太阳很晒。走了这一段路，汗已经浸湿了衣服。",
+        "innerThought": "停下来擦了擦汗。",
+        "afterThought": "田野调查从来不是坐在办公室里完成的工作。",
+        "journal": "烈日下行走。访员在夏季进行入户调查是常事，体力的消耗是工作的一部分。"
+      },
+      "visual": {
+        "effect": "bleach",
+        "intensity": "medium"
+      },
+      "duration": 5000
+    },
+
+    {
+      "id": "waiting_door",
+      "type": "social",
+      "trigger": {
+        "eligibleNodes": ["target_near", "east_housing", "west_old_area", "old_housing", "new_housing"],
+        "probability": 0.6,
+        "minStep": 5
+      },
+      "narrative": {
+        "title": "门前等待",
+        "body": "按照约定时间来到这里，但屋门暂时没有打开。",
+        "innerThought": "可能在地里，或者在邻居家。",
+        "afterThought": "访员站在门口，等了一会儿。这是田野调查中常见的时刻——等待。",
+        "journal": "到达受访户家。门暂时虚掩着。在门口等待的这几分钟，是访员与这个陌生村庄独处的时刻。"
+      },
+      "visual": {
+        "effect": "none",
+        "intensity": "none"
+      },
+      "duration": 5000
+    },
+
+    {
+      "id": "dialect_confusion",
+      "type": "social",
+      "trigger": {
+        "eligibleNodes": ["drying_field", "pond"],
+        "probability": 0.4,
+        "minStep": 3,
+        "requiresNpc": true
+      },
+      "narrative": {
+        "title": "方言",
+        "body": "老人的话带着浓重的本地口音，有些词没太听清。",
+        "innerThought": "……好，大概明白了。",
+        "afterThought": "在中国农村做调查，听懂当地方言是第一个门槛。",
+        "journal": "访问中遇到方言障碍。虽然大致能懂，但细节上可能遗漏了一些信息。"
+      },
+      "visual": {
+        "effect": "none",
+        "intensity": "none"
+      },
+      "duration": 4000
+    },
+
+    {
+      "id": "wrong_way",
+      "type": "physical",
+      "trigger": {
+        "eligibleNodes": ["old_housing", "farmland_east", "farmland_west", "farmland_path"],
+        "probability": 0.2,
+        "minStep": 4
+      },
+      "narrative": {
+        "title": "走错了",
+        "body": "走了一段发现不对。前面是死胡同。",
+        "innerThought": "折返，换个方向。",
+        "afterThought": "在陌生村庄，走错路是常事。没有GPS能精确到每一户。",
+        "journal": "走错了一段路。在缺乏精确地址的农村，寻找只能依靠不断尝试和询问。"
+      },
+      "visual": {
+        "effect": "none",
+        "intensity": "none"
+      },
+      "duration": 3500
+    },
+
+    {
+      "id": "afternoon_quiet",
+      "type": "environmental",
+      "trigger": {
+        "eligibleNodes": ["entrance", "farmland_east", "farmland_west", "farmland_path", "pond", "drying_field"],
+        "probability": 0.3,
+        "minStep": 2
+      },
+      "narrative": {
+        "title": "午后安静",
+        "body": "村子很安静。大部分人在地里干活，或者在家午休。",
+        "innerThought": "连蝉鸣都显得格外清晰。",
+        "afterThought": "中国农村的下午有一种特有的沉寂感。时间似乎走得更慢。",
+        "journal": "村子很安静。下午的乡村，大多数人在田间或屋内。街道上几乎没有人。"
+      },
+      "visual": {
+        "effect": "none",
+        "intensity": "none"
+      },
+      "duration": 4500
+    }
+  ]
+}

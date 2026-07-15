@@ -1,0 +1,325 @@
+{
+  "_schema": "village_graph/v3",
+  "_note": "皖南农村空间图 — 25+节点。玩家只知模糊地址，必须通过询问和观察逐步定位目标。",
+  "villageName": "█村",
+
+  "nodes": [
+    {
+      "id": "entrance",
+      "name": "村口",
+      "type": "transit",
+      "area": "村口入口区",
+      "description": "水泥村牌立在路边，一棵老樟树遮住了大半个路口。电线杆上贴着褪色的通知。",
+      "x": 0.2, "y": 0.15,
+      "neighbors": ["main_road", "shop", "farmland_path"],
+      "clueProbability": 0.1,
+      "visual": "entrance"
+    },
+    {
+      "id": "main_road",
+      "name": "主路",
+      "type": "transit",
+      "area": "主干道路",
+      "description": "一条水泥村道贯穿村庄，两旁是稀稀落落的房屋。偶尔有摩托车经过。",
+      "x": 0.35, "y": 0.18,
+      "neighbors": ["entrance", "shop", "committee", "fork_road_1"],
+      "clueProbability": 0.05,
+      "visual": "entrance"
+    },
+    {
+      "id": "shop",
+      "name": "小卖部",
+      "type": "social_node",
+      "area": "村民活动区",
+      "description": "一间临路的砖房，门口摆着几箱饮料和一把竹椅。褪色的'便民商店'招牌斜挂在檐下。",
+      "x": 0.45, "y": 0.12,
+      "neighbors": ["main_road", "drying_field", "basketball_court"],
+      "npcPool": ["shopkeeper"],
+      "cluePool": ["老板娘说目标户好像在东边老房子那片。", "老板娘想了想：你说的是姓█的那户？往池塘方向走。", "那家我知道，过了晒谷场再问问人。"],
+      "clueProbability": 0.65,
+      "visual": "shop"
+    },
+    {
+      "id": "committee",
+      "name": "村委会",
+      "type": "social_node",
+      "area": "村民活动区",
+      "description": "一栋两层小楼，外墙贴着白色瓷砖，门口挂着几块牌子。院子里停着一辆旧面包车。",
+      "x": 0.6, "y": 0.08,
+      "neighbors": ["main_road", "clinic"],
+      "npcPool": ["cadre"],
+      "cluePool": ["村干部查了系统：登记地址是老住宅区，但门牌号变动过。", "老数据没更新，你到了那边再问。", "听说他家门口有个石磨，不知道还在不在。"],
+      "clueProbability": 0.8,
+      "visual": "committee"
+    },
+    {
+      "id": "clinic",
+      "name": "卫生室",
+      "type": "social_node",
+      "area": "村民活动区",
+      "description": "一间小平房，门口挂着'村卫生室'的牌子。门半掩着，里面似乎有人。",
+      "x": 0.72, "y": 0.06,
+      "neighbors": ["committee", "east_housing", "main_road"],
+      "npcPool": [],
+      "cluePool": [],
+      "clueProbability": 0.2,
+      "visual": "committee"
+    },
+    {
+      "id": "basketball_court",
+      "name": "篮球场",
+      "type": "social_node",
+      "area": "村民活动区",
+      "description": "一片水泥篮球场，篮筐已经生锈。边上晒着一些农作物。平时没什么人来。",
+      "x": 0.5, "y": 0.22,
+      "neighbors": ["shop", "drying_field", "fork_road_1"],
+      "npcPool": [],
+      "cluePool": [],
+      "clueProbability": 0.1,
+      "visual": "drying_field"
+    },
+    {
+      "id": "ancestral_hall",
+      "name": "祠堂",
+      "type": "social_node",
+      "area": "村民活动区",
+      "description": "一座灰砖祠堂，门槛很高。门楣上刻着模糊的字。在皖南农村，祠堂仍然是一个重要的公共空间。",
+      "x": 0.38, "y": 0.32,
+      "neighbors": ["drying_field", "old_housing", "pond_path"],
+      "npcPool": [],
+      "cluePool": [],
+      "clueProbability": 0.15,
+      "visual": "old_housing"
+    },
+    {
+      "id": "drying_field",
+      "name": "晒谷场",
+      "type": "social_node",
+      "area": "村民活动区",
+      "description": "一片水泥空地，角落里堆着秸秆。边上放着几把竹椅和一张石桌。平时老人在这里晒太阳、聊天。",
+      "x": 0.42, "y": 0.35,
+      "neighbors": ["shop", "basketball_court", "ancestral_hall", "old_housing", "farmland_east"],
+      "npcPool": ["elder_drying"],
+      "cluePool": ["晒谷老人说：姓█的？好像住在池塘那边。", "老人指了指南边：你往那边走走看。", "记不太清了，你到池塘那边问问。"],
+      "clueProbability": 0.5,
+      "visual": "drying_field"
+    },
+    {
+      "id": "fork_road_1",
+      "name": "岔路口",
+      "type": "transit",
+      "area": "主干道路",
+      "description": "三条水泥路在这里交汇。路牌早已模糊不清。一条往东，一条往南，一条往西。",
+      "x": 0.55, "y": 0.25,
+      "neighbors": ["main_road", "basketball_court", "east_housing", "small_bridge"],
+      "clueProbability": 0.05,
+      "visual": "entrance"
+    },
+    {
+      "id": "small_bridge",
+      "name": "小桥",
+      "type": "transit",
+      "area": "交通空间",
+      "description": "一座窄窄的水泥桥，桥下是条快干涸的小河。桥面上有几道裂缝。",
+      "x": 0.65, "y": 0.3,
+      "neighbors": ["fork_road_1", "pond", "bamboo_grove"],
+      "clueProbability": 0.05,
+      "visual": "pond"
+    },
+    {
+      "id": "east_housing",
+      "name": "东头砖房",
+      "type": "residential",
+      "area": "住宅分散区",
+      "description": "一栋砖房，外墙贴了白瓷砖。门虚掩着，院子里晾着几件衣服。看起来有人常住。",
+      "x": 0.72, "y": 0.2,
+      "neighbors": ["fork_road_1", "clinic", "new_housing", "farmland_east", "target_near"],
+      "npcPool": [],
+      "cluePool": [],
+      "clueProbability": 0.12,
+      "visual": "entrance"
+    },
+    {
+      "id": "new_housing",
+      "name": "巷口白楼",
+      "type": "residential",
+      "area": "住宅分散区",
+      "description": "一栋两层小楼，外墙是新贴的白瓷砖。门口停着一辆电动车。不知道是不是这家。",
+      "x": 0.82, "y": 0.18,
+      "neighbors": ["east_housing"],
+      "npcPool": [],
+      "cluePool": [],
+      "clueProbability": 0.05,
+      "visual": "entrance"
+    },
+    {
+      "id": "farmland_east",
+      "name": "东边农田",
+      "type": "natural_space",
+      "area": "边缘农田区",
+      "description": "一片稻田，风吹过时泛起绿色的波浪。远处有低矮的丘陵。这里没有人，只有偶尔飞过的鸟。",
+      "x": 0.65, "y": 0.42,
+      "neighbors": ["drying_field", "east_housing", "pond"],
+      "clueProbability": 0.0,
+      "visual": "farmland"
+    },
+    {
+      "id": "pond",
+      "name": "池塘",
+      "type": "natural_space",
+      "area": "边缘农田区",
+      "description": "一片不大的池塘，水面上漂着浮萍。岸边种着几棵柳树。空气里有水草的味道。",
+      "x": 0.7, "y": 0.42,
+      "neighbors": ["small_bridge", "farmland_east", "pond_path", "west_old_area"],
+      "npcPool": ["elder_pond"],
+      "cluePool": ["散步老人说塘埂一直往南，红门的房子就是。", "老人指了指：前面不远。那家门口有个石磨。", "你沿着塘埂走，看到红漆门就到了。"],
+      "clueProbability": 0.85,
+      "visual": "pond"
+    },
+    {
+      "id": "pond_path",
+      "name": "塘埂路",
+      "type": "transit",
+      "area": "交通空间",
+      "description": "一条窄窄的土路沿着池塘边蜿蜒。路边长着杂草，走起来不太平坦。",
+      "x": 0.6, "y": 0.52,
+      "neighbors": ["pond", "ancestral_hall", "old_housing", "target_near"],
+      "clueProbability": 0.1,
+      "visual": "pond"
+    },
+    {
+      "id": "bamboo_grove",
+      "name": "竹林",
+      "type": "natural_space",
+      "area": "边缘农田区",
+      "description": "一小片竹林，风穿过竹叶发出沙沙的声音。地上铺满了干枯的竹叶。",
+      "x": 0.75, "y": 0.35,
+      "neighbors": ["small_bridge", "pond"],
+      "clueProbability": 0.0,
+      "visual": "pond"
+    },
+    {
+      "id": "old_housing",
+      "name": "老住宅区",
+      "type": "residential",
+      "area": "住宅分散区",
+      "description": "狭窄的巷子弯弯绕绕，土墙和砖房交错。好几户人家的门都虚掩着，分不清哪家是哪家。",
+      "x": 0.38, "y": 0.48,
+      "neighbors": ["drying_field", "ancestral_hall", "pond_path", "west_old_area", "empty_yard", "target_near"],
+      "npcPool": [],
+      "cluePool": ["沿着巷子往南走，走到头右转。", "小心迷路，这片房子结构复杂。", "你找的那家应该在更靠池塘那边。"],
+      "clueProbability": 0.3,
+      "visual": "old_housing"
+    },
+    {
+      "id": "west_old_area",
+      "name": "西边老屋",
+      "type": "residential",
+      "area": "住宅分散区",
+      "description": "几栋土墙瓦房挤在一起，墙上爬满了藤蔓。其中一户门口有把旧竹椅，看起来有人住。",
+      "x": 0.25, "y": 0.5,
+      "neighbors": ["old_housing", "pond_path", "empty_yard", "farmland_path", "farmland_west"],
+      "npcPool": [],
+      "cluePool": [],
+      "clueProbability": 0.05,
+      "visual": "old_housing"
+    },
+    {
+      "id": "empty_yard",
+      "name": "空院子",
+      "type": "empty",
+      "area": "住宅分散区",
+      "description": "一个废弃的院子。门锁着，透过门缝能看到里面长满了杂草。这里显然很久没人住了。",
+      "x": 0.3, "y": 0.55,
+      "neighbors": ["west_old_area", "old_housing"],
+      "clueProbability": 0.0,
+      "visual": "old_housing"
+    },
+    {
+      "id": "farmland_path",
+      "name": "田间小路",
+      "type": "transit",
+      "area": "交通空间",
+      "description": "一条踩出来的土路穿过农田。两边是高高的稻子，视野很窄。",
+      "x": 0.15, "y": 0.35,
+      "neighbors": ["entrance", "farmland_west", "west_old_area"],
+      "clueProbability": 0.0,
+      "visual": "farmland"
+    },
+    {
+      "id": "farmland_west",
+      "name": "西边农田",
+      "type": "natural_space",
+      "area": "边缘农田区",
+      "description": "一大片开阔的农田。远处能看到低缓的丘陵。风吹过稻田，发出一片沙沙声。",
+      "x": 0.1, "y": 0.45,
+      "neighbors": ["farmland_path", "west_old_area", "hillside"],
+      "clueProbability": 0.0,
+      "visual": "farmland"
+    },
+    {
+      "id": "hillside",
+      "name": "山坡",
+      "type": "natural_space",
+      "area": "边缘农田区",
+      "description": "村边的小山坡。从这里可以看到大半个村庄的轮廓——但辨认不出具体哪一户。",
+      "x": 0.08, "y": 0.55,
+      "neighbors": ["farmland_west"],
+      "clueProbability": 0.0,
+      "visual": "farmland"
+    },
+    {
+      "id": "target_near",
+      "name": "小巷尽头",
+      "type": "transit",
+      "area": "住宅分散区",
+      "description": "一条安静的小巷。几户人家的门都虚掩着。看起来都有可能。",
+      "x": 0.55, "y": 0.6,
+      "neighbors": ["pond_path", "old_housing", "east_housing", "new_housing"],
+      "clueProbability": 0.0,
+      "visual": "target_vicinity"
+    }
+  ],
+
+  "startNode": "entrance",
+  "_note_edges": "edges 由 nodes.neighbors 自动生成，运行时构建邻接表。",
+
+  "npcDefs": {
+    "shopkeeper": { "name": "老板娘", "occupation": "小卖部店主", "dialectLevel": 40, "dialogueRoot": "shopkeeper" },
+    "cadre": { "name": "村干部", "occupation": "村委会工作人员", "dialectLevel": 30, "dialogueRoot": "cadre" },
+    "elder_drying": { "name": "晒谷老人", "occupation": "务农", "dialectLevel": 80, "dialogueRoot": "elder_drying" },
+    "elder_pond": { "name": "散步老人", "occupation": "务农", "dialectLevel": 70, "dialogueRoot": "elder_pond" }
+  },
+
+  "clueReliability": {
+    "_note": "每条线索的可靠性在 0-1 之间。玩家需要综合判断。",
+    "defaultReliability": 0.5,
+    "highReliabilityNodes": { "pond": 0.9, "committee": 0.7 },
+    "lowReliabilityNodes": { "shop": 0.5, "drying_field": 0.4, "old_housing": 0.3 }
+  },
+
+  "weather": {
+    "_note": "随机天气影响事件概率和氛围",
+    "types": [
+      { "id": "sunny", "label": "晴", "weight": 0.5, "eventModifier": 1.0 },
+      { "id": "cloudy", "label": "多云", "weight": 0.25, "eventModifier": 0.8 },
+      { "id": "hot", "label": "炎热", "weight": 0.25, "eventModifier": 1.3 }
+    ]
+  },
+
+  "randomization": {
+    "blockProbability": 0.2,
+    "blockablePairs": [
+      ["old_housing", "west_old_area"],
+      ["small_bridge", "pond"],
+      ["farmland_path", "farmland_west"],
+      ["basketball_court", "fork_road_1"]
+    ],
+    "blockReasons": [
+      "前方在修路，过不去。",
+      "这条路被一辆拖拉机堵住了。",
+      "巷子尽头堆满了建筑材料。",
+      "这条小路最近被水冲坏了。"
+    ]
+  }
+}

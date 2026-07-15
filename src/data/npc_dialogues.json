@@ -1,0 +1,167 @@
+{
+  "_schema": "npc_dialogue/v3",
+  "_note": "真实农村田野调查对话。高方言NPC的部分节点有dialectClue——只有使用方言技能后才能获得。",
+
+  "shopkeeper": {
+    "name": "老板娘",
+    "occupation": "小卖部店主",
+    "nodes": {
+      "greeting": {
+        "speaker": "npc",
+        "text": "哎，买东西还是找人？看你面生。",
+        "next": "ask_purpose"
+      },
+      "ask_purpose": {
+        "speaker": "player",
+        "text": "您好，打扰一下。我们是做家庭调查的，想找一下███家，您知道在哪吗？",
+        "next": "think"
+      },
+      "think": {
+        "speaker": "npc",
+        "text": "███……哦你说的是那家啊。好像在东边，老房子那片。你去那边问。",
+        "options": [
+          { "label": "谢谢，我去那边找找", "next": "go_find" },
+          { "label": "具体是哪一排？能再说说吗", "next": "more_detail" }
+        ]
+      },
+      "more_detail": {
+        "speaker": "npc",
+        "text": "这个我就说不好了。那边房子都差不多，你自己过去看嘛。",
+        "action": { "type": "addClue", "clue": "老板娘说在东边老房子那片。", "trustDelta": 5 },
+        "next": "farewell"
+      },
+      "go_find": {
+        "speaker": "player",
+        "text": "好嘞，谢谢您。",
+        "next": "farewell"
+      },
+      "farewell": {
+        "speaker": "npc",
+        "text": "嗯，慢走。",
+        "next": null
+      }
+    },
+    "startNode": "greeting"
+  },
+
+  "cadre": {
+    "name": "村干部",
+    "occupation": "村委会工作人员",
+    "nodes": {
+      "greeting": {
+        "speaker": "npc",
+        "text": "你好，有什么事？",
+        "next": "show_id"
+      },
+      "show_id": {
+        "speaker": "player",
+        "text": "您好，我是做中国家庭追踪调查的访员。想确认一下一户受访家庭的地址，系统里登记的地址比较模糊。",
+        "next": "cadre_response"
+      },
+      "cadre_response": {
+        "speaker": "npc",
+        "text": "嗯……我帮你看看。登记地址是█村，但那个是老数据了，门牌号后来变动过。应该是在老住宅区那一带。",
+        "action": { "type": "addClue", "clue": "村干部查了系统：登记地址在老住宅区，但门牌号已变动过。", "trustDelta": 10 },
+        "options": [
+          { "label": "好的，谢谢", "next": "farewell" },
+          { "label": "还有什么能参考的吗", "next": "extra_hint" }
+        ]
+      },
+      "extra_hint": {
+        "speaker": "npc",
+        "text": "我想想……他家门口好像有个石磨。前几年搞美丽乡村的时候，大部分都清理了，不知道还在不在。",
+        "action": { "type": "addClue", "clue": "村干部提到目标户门口好像有个石磨，但不一定还在。", "trustDelta": 5 },
+        "next": "farewell"
+      },
+      "farewell": {
+        "speaker": "npc",
+        "text": "没事。找不到再来。",
+        "next": null
+      }
+    },
+    "startNode": "greeting"
+  },
+
+  "elder_drying": {
+    "name": "晒谷老人",
+    "occupation": "务农",
+    "dialectLevel": 80,
+    "nodes": {
+      "greeting": {
+        "speaker": "npc",
+        "text": "找哪个啊？",
+        "dialectNote": "方言较重，语速慢",
+        "next": "explain"
+      },
+      "explain": {
+        "speaker": "player",
+        "text": "大爷，想跟您打听个事。我找███家，您知道不？",
+        "next": "elder_ponder"
+      },
+      "elder_ponder": {
+        "speaker": "npc",
+        "text": "姓什么？███……有点印象。以前他们住在池塘那边，后来好像搬了一回。",
+        "dialectClue": "老人含混地提到了「塘」和「南边」，似乎说的是过了池塘往南。",
+        "options": [
+          { "label": "耐心等老人想", "next": "remember" },
+          { "label": "问问池塘怎么走", "next": "ask_pond" }
+        ]
+      },
+      "remember": {
+        "speaker": "npc",
+        "text": "应该是往南边，过了塘以后你再问人。我这记性不行了。",
+        "dialectClue": "老人又补充了一句方言——大概意思是「红门」和「石磨」还在。",
+        "action": { "type": "addClue", "clue": "晒谷老人说过了池塘往南，隐约提到红门和石磨。", "trustDelta": 15 },
+        "next": "farewell"
+      },
+      "ask_pond": {
+        "speaker": "npc",
+        "text": "池塘啊，你往南走，到头就是。那边住的人应该晓得。",
+        "action": { "type": "addClue", "clue": "老人说池塘在南边，那边住的人可能知道。", "trustDelta": 10 },
+        "next": "farewell"
+      },
+      "farewell": {
+        "speaker": "npc",
+        "text": "嗯。",
+        "next": null
+      }
+    },
+    "startNode": "greeting"
+  },
+
+  "elder_pond": {
+    "name": "散步老人",
+    "occupation": "务农",
+    "dialectLevel": 70,
+    "nodes": {
+      "greeting": {
+        "speaker": "npc",
+        "text": "你在找谁？我在这看到你来回走了。",
+        "next": "reply"
+      },
+      "reply": {
+        "speaker": "player",
+        "text": "您好！我在找一户人家，姓███。走了半天没找到。",
+        "next": "pond_clue"
+      },
+      "pond_clue": {
+        "speaker": "npc",
+        "text": "███……哦那家啊，我知道。你沿这个塘埂一直往南，快到的时候有个红门的房子就是。门口原来有个石磨，不知道还在不在。",
+        "dialectClue": "老人用方言又强调了一遍——红漆木门，石磨在右手边。错不了。",
+        "action": { "type": "addClue", "clue": "散步老人说塘埂一直往南，红门的房子就是。", "trustDelta": 20 },
+        "next": "confirm"
+      },
+      "confirm": {
+        "speaker": "player",
+        "text": "红门的房子，往南。谢谢您！",
+        "next": "farewell"
+      },
+      "farewell": {
+        "speaker": "npc",
+        "text": "嗯。",
+        "next": null
+      }
+    },
+    "startNode": "greeting"
+  }
+}

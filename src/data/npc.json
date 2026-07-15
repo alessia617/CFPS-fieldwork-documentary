@@ -1,0 +1,7 @@
+[
+  {
+    "_schema": "npc/v1",
+    "_note": "Phase 7 填充 NPC 数据",
+    "_fields": ["id", "name", "occupation", "dialectLevel", "knowledgeLevel", "helpfulness", "personality", "avatar", "dialogues", "nodeId"]
+  }
+]

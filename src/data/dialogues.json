@@ -1,0 +1,93 @@
+{
+  "scene": "appointment_confirmation",
+  "title": "预约确认",
+  "narrative": [
+    {
+      "id": "phase_1_label",
+      "type": "phase_label",
+      "text": "确认身份"
+    },
+    {
+      "id": "msg_1",
+      "speaker": "interviewer",
+      "side": "right",
+      "text": "您好，我们是中国家庭追踪调查项目（CFPS）的访问员，请问您是███吗？"
+    },
+    {
+      "id": "msg_2",
+      "speaker": "respondent",
+      "side": "left",
+      "text": "是我，怎么了。"
+    },
+    {
+      "id": "msg_3",
+      "speaker": "interviewer",
+      "side": "right",
+      "text": "还记得我们前年访问过您家吗，今年进行追踪调查，您最近有时间接受面访吗？"
+    },
+    {
+      "id": "msg_4",
+      "speaker": "respondent",
+      "side": "left",
+      "text": "行，你们下午三点过来吧。"
+    },
+    {
+      "id": "msg_5",
+      "speaker": "interviewer",
+      "side": "right",
+      "text": "好的，那我们下午见。"
+    },
+    {
+      "id": "sys_booking",
+      "type": "system",
+      "text": "访问预约已确认",
+      "detail": "样本状态：READY"
+    },
+    {
+      "id": "phase_2_label",
+      "type": "phase_label",
+      "text": "确认地址"
+    },
+    {
+      "id": "msg_6",
+      "speaker": "interviewer",
+      "side": "right",
+      "text": "我们已经知道您在██社区，请问您可以提供更具体地址吗？我这边记一下，方便上门访问。"
+    },
+    {
+      "id": "msg_7",
+      "speaker": "respondent",
+      "side": "left",
+      "text": "█村。"
+    },
+    {
+      "id": "msg_8",
+      "speaker": "interviewer",
+      "side": "right",
+      "text": "请问具体是█村的哪一户呢？"
+    },
+    {
+      "id": "msg_9",
+      "speaker": "respondent",
+      "side": "left",
+      "text": "你到了直接问就知道了。"
+    },
+    {
+      "id": "msg_10",
+      "speaker": "interviewer",
+      "side": "right",
+      "text": "啊……好的……"
+    },
+    {
+      "id": "msg_11",
+      "speaker": "interviewer",
+      "side": "right",
+      "text": "那我们到时候见。"
+    },
+    {
+      "id": "ending_keywords",
+      "type": "ending",
+      "keywords": ["█村", "地址信息不足"]
+    }
+  ]
+}
