@@ -24,7 +24,7 @@ export function Phone({ children, tilt = 8 }: PhoneProps) {
       {/* 手机外壳 */}
       <div
         style={{
-          width: 290,
+          width: 'clamp(250px, 68vw, 290px)',
           background: '#26211c',
           borderRadius: 28,
           padding: 10,
@@ -33,6 +33,7 @@ export function Phone({ children, tilt = 8 }: PhoneProps) {
           position: 'relative',
           transform: 'rotateX(3deg) rotateY(-3deg)',
           transformStyle: 'preserve-3d',
+          margin: '0 auto',
         }}
       >
         {/* 侧边物理按钮 */}
@@ -59,7 +60,7 @@ export function Phone({ children, tilt = 8 }: PhoneProps) {
             overflow: 'hidden',
             display: 'flex',
             flexDirection: 'column',
-            height: 460,
+            height: 'clamp(380px, 88vh, 460px)',
           }}
         >
           {/* 顶部状态栏 */}

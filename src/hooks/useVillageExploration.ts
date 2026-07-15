@@ -17,8 +17,9 @@ function rng(): number {
   _rng = (_rng * 16807 + 0) % 2147483647
   return _rng / 2147483647
 }
-function pick<T>(arr: T[]): T {
-  return arr[Math.floor(rng() * arr.length)]!
+function pick<T>(arr: T[]): T | undefined {
+  if (arr.length === 0) return undefined
+  return arr[Math.floor(rng() * arr.length)]
 }
 
 /* ── 原始数据类型 ── */
@@ -97,23 +98,33 @@ export function useVillageExploration() {
   } | null>(null)
 
   if (!init.current) {
-    const nodeMap = new Map(raw.nodes.map((n) => [n.id, n]))
-    // 随机选一个住宅节点作为目标（排除空节点）
-    const residential = raw.nodes.filter((n) => n.type === 'residential')
-    const targetId = pick(residential).id
-    // 天气
-    const totalW = raw.weather.types.reduce((s, t) => s + t.weight, 0)
-    let wr = rng() * totalW
-    let weather = raw.weather.types[0]!
-    for (const w of raw.weather.types) { wr -= w.weight; if (wr <= 0) { weather = w; break } }
-    // 阻断
-    const blocked = new Set<string>()
-    for (const [a, b] of raw.randomization.blockablePairs) {
-      if (rng() < raw.randomization.blockProbability) {
-        blocked.add(`${a}->${b}`); blocked.add(`${b}->${a}`)
+    try {
+      const nodeMap = new Map(raw.nodes.map((n) => [n.id, n]))
+      const residential = raw.nodes.filter((n) => n.type === 'residential')
+      const targetId = pick(residential)?.id ?? residential[0]?.id ?? raw.startNode
+      const totalW = raw.weather.types.reduce((s, t) => s + t.weight, 0)
+      let wr = rng() * totalW
+      let weather = raw.weather.types[0]!
+      for (const w of raw.weather.types) { wr -= w.weight; if (wr <= 0) { weather = w; break } }
+      const blocked = new Set<string>()
+      for (const [a, b] of raw.randomization.blockablePairs) {
+        if (rng() < raw.randomization.blockProbability) {
+          blocked.add(`${a}->${b}`); blocked.add(`${b}->${a}`)
+        }
+      }
+      init.current = { nodeMap, blocked, targetId, weather }
+    } catch (e) {
+      // 最坏情况回退 — 保证不抛异常导致白屏
+      console.error('useVillageExploration init failed:', e)
+      const fallbackNode = new Map(raw.nodes.map((n) => [n.id, n]))
+      const fallbackTarget = raw.nodes.find((n) => n.type === 'residential')?.id ?? raw.nodes[0]!.id
+      init.current = {
+        nodeMap: fallbackNode,
+        blocked: new Set(),
+        targetId: fallbackTarget,
+        weather: { id: 'sunny', label: '晴', eventModifier: 1.0 },
       }
     }
-    init.current = { nodeMap, blocked, targetId, weather }
   }
   const { blocked, targetId, weather } = init.current
 
@@ -131,7 +142,7 @@ export function useVillageExploration() {
       // 随机线索
       let activeClue: string | null = null
       if (rn.cluePool && rn.cluePool.length > 0 && rn.clueProbability && rn.clueProbability > 0) {
-        activeClue = pick(rn.cluePool)
+        activeClue = pick(rn.cluePool) ?? null
       }
       m.set(rn.id, {
         id: rn.id, name: rn.name, type: rn.type, area: rn.area,

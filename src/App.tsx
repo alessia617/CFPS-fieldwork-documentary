@@ -1,4 +1,4 @@
-import { useReducer, useRef, useCallback } from 'react'
+import { useReducer, useRef, useCallback, Component, type ReactNode } from 'react'
 import { motion } from 'framer-motion'
 import { AppContext, initialState, appReducer } from './context'
 import { canTransition, getTransitionType, SceneTransition } from './systems'
@@ -8,28 +8,45 @@ import type { SceneId, AppState, AppAction } from './context/types'
 import type { TransitionType } from './systems'
 
 /* ================================================================
-   App — 应用根组件
-   场景状态机 + 转场动画 + 多场景渲染
+   Error Boundary — 捕获任何子组件的渲染错误
+   防止生产环境静默白屏
    ================================================================ */
+class ErrorCatcher extends Component<{ children: ReactNode }, { err: Error | null }> {
+  state: { err: Error | null } = { err: null }
+  static getDerivedStateFromError(err: Error) { return { err } }
+  render() {
+    if (this.state.err) {
+      return (
+        <div style={{
+          minHeight: '100svh', background: '#1a1a1a',
+          display: 'flex', flexDirection: 'column',
+          alignItems: 'center', justifyContent: 'center',
+          padding: 24, color: '#e8e4dc', fontFamily: 'sans-serif',
+        }}>
+          <h2 style={{ color: '#c44b3c', marginBottom: 12 }}>渲染错误</h2>
+          <pre style={{ fontSize: 12, color: '#7a7570', maxWidth: 500, whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
+            {this.state.err.message}
+          </pre>
+        </div>
+      )
+    }
+    return this.props.children
+  }
+}
 
-/* ── 共享背景装饰（所有场景共用） ── */
+/* ── 共享背景装饰 ── */
 function SharedBackground() {
   return (
     <>
-      {/* 纸质纹理 */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E")`,
-          backgroundRepeat: 'repeat',
-          backgroundSize: '200px 200px',
+          backgroundRepeat: 'repeat', backgroundSize: '200px 200px',
         }}
       />
-      {/* 档案元数据 */}
       <ArchivalMeta />
-      {/* 归档戳记 */}
       <ArchiveStamp />
-      {/* 右下角几何 */}
       <motion.div
         className="absolute bottom-12 right-10 flex gap-2.5"
         initial={{ opacity: 0 }} animate={{ opacity: 1 }}
@@ -39,7 +56,6 @@ function SharedBackground() {
         <div className="w-2.5 h-2.5 bg-brick opacity-70" />
         <div className="w-2.5 h-2.5 border border-ink-primary opacity-30" />
       </motion.div>
-      {/* 左下黑色方块 */}
       <motion.div
         className="absolute bottom-10 left-6 md:left-12"
         initial={{ opacity: 0 }} animate={{ opacity: 0.7 }}
@@ -51,7 +67,6 @@ function SharedBackground() {
   )
 }
 
-/* ── 档案元数据 ── */
 function ArchivalMeta() {
   return (
     <motion.div
@@ -76,7 +91,6 @@ function ArchivalMeta() {
   )
 }
 
-/* ── 归档戳记 ── */
 function ArchiveStamp() {
   return (
     <motion.div
@@ -97,17 +111,11 @@ function ArchiveStamp() {
   )
 }
 
-/* ================================================================
-   场景渲染映射
-   ================================================================ */
+/* ── 场景渲染映射 ── */
 function SceneRenderer({
-  scene,
-  state,
-  dispatch,
+  scene, state, dispatch,
 }: {
-  scene: SceneId
-  state: AppState
-  dispatch: React.Dispatch<AppAction>
+  scene: SceneId; state: AppState; dispatch: React.Dispatch<AppAction>
 }) {
   const navigateTo = useCallback(
     (target: SceneId) => {
@@ -153,13 +161,9 @@ function SceneRenderer({
     default:
       return (
         <div style={{
-          minHeight: '100svh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontFamily: 'var(--font-mono)',
-          fontSize: 14,
-          color: '#7a7570',
+          minHeight: '100svh', display: 'flex',
+          alignItems: 'center', justifyContent: 'center',
+          fontFamily: 'var(--font-mono)', fontSize: 14, color: '#7a7570',
         }}>
           {scene} — 待实现
         </div>
@@ -167,15 +171,11 @@ function SceneRenderer({
   }
 }
 
-/* ================================================================
-   根组件
-   ================================================================ */
 export default function App() {
   const [state, dispatch] = useReducer(appReducer, initialState)
   const prevSceneRef = useRef<SceneId>(state.currentScene)
   const transitionTypeRef = useRef<TransitionType>('fade')
 
-  // 场景切换时记录转场类型
   if (prevSceneRef.current !== state.currentScene) {
     transitionTypeRef.current = getTransitionType(prevSceneRef.current, state.currentScene)
     prevSceneRef.current = state.currentScene
@@ -184,27 +184,27 @@ export default function App() {
   const currentTransitionType = transitionTypeRef.current
 
   return (
-    <AppContext.Provider value={{ state, dispatch }}>
-      <div
-        className="relative min-h-screen overflow-x-hidden select-none"
-        style={{
-          background: '#f2e8d5',
-          fontFamily: 'var(--font-body)',
-        }}
-      >
-        <SharedBackground />
-
-        <SceneTransition
-          sceneKey={state.currentScene}
-          transitionType={currentTransitionType}
+    <ErrorCatcher>
+      <AppContext.Provider value={{ state, dispatch }}>
+        {/* 永远可见的基准 div — 用于确认 React 是否成功挂载 */}
+        <div style={{
+          position: 'fixed', bottom: 0, right: 0, zIndex: 9999,
+          background: '#c44b3c', color: '#fff',
+          padding: '2px 8px', fontSize: 10, fontFamily: 'monospace',
+          opacity: 0.6, pointerEvents: 'none',
+        }}>
+          CFPS-Web · {state.currentScene}
+        </div>
+        <div
+          className="relative min-h-screen overflow-x-hidden select-none"
+          style={{ background: '#f2e8d5', fontFamily: 'var(--font-body)' }}
         >
-          <SceneRenderer
-            scene={state.currentScene}
-            state={state}
-            dispatch={dispatch}
-          />
-        </SceneTransition>
-      </div>
-    </AppContext.Provider>
+          <SharedBackground />
+          <SceneTransition sceneKey={state.currentScene} transitionType={currentTransitionType}>
+            <SceneRenderer scene={state.currentScene} state={state} dispatch={dispatch} />
+          </SceneTransition>
+        </div>
+      </AppContext.Provider>
+    </ErrorCatcher>
   )
 }

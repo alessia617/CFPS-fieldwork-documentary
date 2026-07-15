@@ -61,7 +61,7 @@ export function ChatBubble({
           background: isInterviewer ? '#2c2c2c' : '#ffffff',
           color: isInterviewer ? '#e8e4dc' : '#1a1a1a',
           borderRadius: isInterviewer ? '12px 12px 3px 12px' : '12px 12px 12px 3px',
-          fontSize: 14,
+          fontSize: 'clamp(14px, 4vw, 16px)',
           lineHeight: 1.8,
           fontFamily: isInterviewer ? 'var(--font-body)' : 'var(--font-dialogue)',
           boxShadow: isInterviewer

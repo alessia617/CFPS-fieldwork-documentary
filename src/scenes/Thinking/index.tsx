@@ -93,7 +93,7 @@ export function Thinking({ onComplete }: ThinkingProps) {
             <div style={{ width: 40, height: 1, background: '#c44b3c' }} />
             <span style={{
               fontFamily: 'var(--font-mono)',
-              fontSize: 13,
+              fontSize: 'clamp(13px, 3.5vw, 15px)',
               color: '#c44b3c',
               letterSpacing: '0.14em',
               fontWeight: 600,
@@ -124,7 +124,7 @@ export function Thinking({ onComplete }: ThinkingProps) {
           >
             <span style={{
               fontFamily: 'var(--font-mono)',
-              fontSize: 10,
+              fontSize: 'clamp(10px, 2.5vw, 11px)',
               color: '#7a7570',
               letterSpacing: '0.1em',
             }}>
@@ -135,12 +135,12 @@ export function Thinking({ onComplete }: ThinkingProps) {
               borderRadius: 12,
               padding: '14px 22px',
               background: 'rgba(255,255,255,0.03)',
-              maxWidth: 380,
+              maxWidth: 'clamp(280px, 80vw, 380px)',
               textAlign: 'center',
             }}>
               <p style={{
                 fontFamily: 'var(--font-dialogue)',
-                fontSize: 17,
+                fontSize: 'clamp(15px, 4vw, 18px)',
                 color: '#c0b8a8',
                 lineHeight: 1.8,
                 margin: 0,
@@ -167,7 +167,7 @@ export function Thinking({ onComplete }: ThinkingProps) {
               alignItems: 'center',
               gap: 10,
               marginBottom: 40,
-              maxWidth: 440,
+              maxWidth: 'clamp(300px, 85vw, 440px)',
               textAlign: 'center',
             }}
           >
@@ -180,7 +180,7 @@ export function Thinking({ onComplete }: ThinkingProps) {
               <div style={{ width: 16, height: 1, background: 'rgba(255,255,255,0.15)' }} />
               <span style={{
                 fontFamily: 'var(--font-mono)',
-                fontSize: 10,
+                fontSize: 'clamp(10px, 2.5vw, 11px)',
                 color: '#7a7570',
                 letterSpacing: '0.08em',
               }}>
@@ -190,7 +190,7 @@ export function Thinking({ onComplete }: ThinkingProps) {
             </div>
             <p style={{
               fontFamily: 'var(--font-body)',
-              fontSize: 14,
+              fontSize: 'clamp(13px, 3.5vw, 16px)',
               color: '#9a9590',
               lineHeight: 1.9,
               margin: 0,
@@ -224,7 +224,7 @@ export function Thinking({ onComplete }: ThinkingProps) {
           >
             <span style={{
               fontFamily: 'var(--font-display)',
-              fontSize: 22,
+              fontSize: 'clamp(18px, 5vw, 24px)',
               fontWeight: 700,
               color: '#e8e4dc',
               letterSpacing: '0.12em',

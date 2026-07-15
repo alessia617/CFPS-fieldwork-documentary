@@ -57,7 +57,7 @@ export function Ending({ onRestart }: EndingProps) {
         <polygon points="830,180 860,180 845,205" fill="#c44b3c" opacity="0.45" />
       </svg>
 
-      <div style={{ position: 'relative', zIndex: 1, maxWidth: 680, margin: '0 auto', padding: '48px 28px 80px' }}>
+      <div style={{ position: 'relative', zIndex: 1, maxWidth: 'clamp(320px, 92vw, 680px)', margin: '0 auto', padding: 'clamp(28px, 6vh, 48px) clamp(14px, 4vw, 28px) clamp(48px, 10vh, 80px)' }}>
 
         {/* ═══════════════════════════════
             第一部分 — 标题
@@ -70,7 +70,7 @@ export function Ending({ onRestart }: EndingProps) {
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
             <span style={{ width: 36, height: 2, background: '#c44b3c' }} />
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: '#c44b3c', letterSpacing: '0.14em' }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(10px, 2.5vw, 11px)', color: '#c44b3c', letterSpacing: '0.14em' }}>
               FIELD REPORT
             </span>
           </div>
@@ -82,7 +82,7 @@ export function Ending({ onRestart }: EndingProps) {
             寻找完成
           </h1>
           <p style={{
-            fontFamily: 'var(--font-dialogue)', fontSize: 16, color: '#4a4540',
+            fontFamily: 'var(--font-dialogue)', fontSize: 'clamp(15px, 4vw, 18px)', color: '#4a4540',
             lineHeight: 1.8, margin: '12px 0 0 0',
           }}>
             一户家庭，一份数据，一次相遇。
@@ -101,7 +101,7 @@ export function Ending({ onRestart }: EndingProps) {
           <SectionHeader title="Field Report" subtitle="本次寻找记录" />
 
           <div style={{
-            border: '1px solid #c0b8a8', padding: '20px 24px',
+            border: '1px solid #c0b8a8', padding: 'clamp(14px, 3vw, 20px) clamp(14px, 3.5vw, 24px)',
             background: 'rgba(250,247,240,0.5)',
           }}>
             <ReportRow label="调查地点" value="██省 ██市 ██村" />
@@ -130,7 +130,7 @@ export function Ending({ onRestart }: EndingProps) {
             {/* 已访路线摘要 */}
             <div style={{
               display: 'flex', flexWrap: 'wrap', gap: '4px 8px',
-              fontFamily: 'var(--font-mono)', fontSize: 10, color: '#7a7570',
+              fontFamily: 'var(--font-mono)', fontSize: 'clamp(10px, 2.5vw, 11px)', color: '#7a7570',
               letterSpacing: '0.04em', lineHeight: 1.8,
             }}>
               {Array.from(snapshot.visited ?? []).slice(0, 12).map((id, i) => (
@@ -154,7 +154,7 @@ export function Ending({ onRestart }: EndingProps) {
                 </span>
               ))}
             </div>
-            <div style={{ marginTop: 12, fontFamily: 'var(--font-mono)', fontSize: 9, color: '#b0aaa5', letterSpacing: '0.06em' }}>
+            <div style={{ marginTop: 12, fontFamily: 'var(--font-mono)', fontSize: 'clamp(9px, 2.2vw, 10px)', color: '#b0aaa5', letterSpacing: '0.06em' }}>
               步数 {steps} · 已访 {visitedCount} 处
             </div>
           </div>
@@ -176,7 +176,7 @@ export function Ending({ onRestart }: EndingProps) {
             paddingLeft: 16,
           }}>
             <p style={{
-              fontFamily: 'var(--font-dialogue)', fontSize: 15,
+              fontFamily: 'var(--font-dialogue)', fontSize: 'clamp(14px, 3.8vw, 17px)',
               color: '#4a4540', lineHeight: 2,
               margin: 0, whiteSpace: 'pre-line',
             }}>
@@ -196,12 +196,12 @@ export function Ending({ onRestart }: EndingProps) {
         >
           <div style={{
             border: '1px solid #d8d0c4',
-            padding: '28px 24px',
+            padding: 'clamp(18px, 4vw, 28px) clamp(14px, 3.5vw, 24px)',
             textAlign: 'center',
             background: 'rgba(250,247,240,0.4)',
           }}>
             <p style={{
-              fontFamily: 'var(--font-display)', fontSize: 18,
+              fontFamily: 'var(--font-display)', fontSize: 'clamp(16px, 4.5vw, 20px)',
               fontWeight: 700, color: '#1a1a1a',
               letterSpacing: '0.04em', margin: '0 0 16px 0',
             }}>
@@ -211,13 +211,13 @@ export function Ending({ onRestart }: EndingProps) {
             </p>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, margin: '16px 0' }}>
               <span style={{ width: 24, height: 1, background: '#c44b3c' }} />
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: '#7a7570', letterSpacing: '0.08em' }}>
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(11px, 2.8vw, 13px)', color: '#7a7570', letterSpacing: '0.08em' }}>
                 数据并非自动产生
               </span>
               <span style={{ width: 24, height: 1, background: '#c44b3c' }} />
             </div>
             <p style={{
-              fontFamily: 'var(--font-dialogue)', fontSize: 14,
+              fontFamily: 'var(--font-dialogue)', fontSize: 'clamp(14px, 3.5vw, 16px)',
               color: '#4a4540', lineHeight: 1.9, margin: 0,
             }}>
               它来自人与人之间的一次次相遇。
@@ -239,9 +239,9 @@ export function Ending({ onRestart }: EndingProps) {
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             style={{
-              padding: '14px 32px',
+              padding: 'clamp(14px, 3vw, 18px) clamp(20px, 5vw, 36px)',
               background: '#1a1a1a', color: '#e8e4dc',
-              border: 'none', fontSize: 14, fontWeight: 600,
+              border: 'none', fontSize: 'clamp(14px, 3.5vw, 16px)', fontWeight: 600,
               fontFamily: 'var(--font-body)', cursor: 'pointer',
               letterSpacing: '0.04em',
             }}
@@ -261,7 +261,7 @@ export function Ending({ onRestart }: EndingProps) {
         >
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 12 }}>
             <span style={{ width: 16, height: 1, background: '#c0b8a8' }} />
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 9, color: '#c0b8a8', letterSpacing: '0.1em' }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(9px, 2.2vw, 10px)', color: '#c0b8a8', letterSpacing: '0.1em' }}>
               ABOUT
             </span>
             <span style={{ width: 16, height: 1, background: '#c0b8a8' }} />
@@ -292,13 +292,13 @@ function SectionHeader({ title, subtitle }: { title: string; subtitle: string })
   return (
     <div style={{ marginBottom: 14, display: 'flex', alignItems: 'baseline', gap: 12 }}>
       <span style={{
-        fontFamily: 'var(--font-mono)', fontSize: 10, color: '#c44b3c',
+        fontFamily: 'var(--font-mono)', fontSize: 'clamp(10px, 2.5vw, 11px)', color: '#c44b3c',
         letterSpacing: '0.12em', fontWeight: 600,
       }}>
         {title}
       </span>
       <span style={{
-        fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 700,
+        fontFamily: 'var(--font-display)', fontSize: 'clamp(16px, 4.5vw, 20px)', fontWeight: 700,
         color: '#1a1a1a', letterSpacing: '0.04em',
       }}>
         {subtitle}
@@ -314,10 +314,10 @@ function ReportRow({ label, value, isLast }: { label: string; value: string; isL
       display: 'flex', justifyContent: 'space-between', alignItems: 'baseline',
       padding: '8px 0', borderBottom: isLast ? 'none' : '1px solid #e0d8c8',
     }}>
-      <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: '#7a7570', letterSpacing: '0.04em' }}>
+      <span style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(11px, 2.8vw, 13px)', color: '#7a7570', letterSpacing: '0.04em' }}>
         {label}
       </span>
-      <span style={{ fontFamily: 'var(--font-display)', fontSize: 14, fontWeight: 600, color: '#1a1a1a' }}>
+      <span style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(14px, 3.5vw, 16px)', fontWeight: 600, color: '#1a1a1a' }}>
         {value}
       </span>
     </div>

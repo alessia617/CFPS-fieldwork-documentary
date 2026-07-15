@@ -19,7 +19,7 @@ export function NPCInteraction({ npcId, onBack }: NPCInteractionProps) {
       <div style={{
         minHeight: '100svh', background: '#141210',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        color: '#7a7570', fontFamily: 'var(--font-mono)', fontSize: 14,
+        color: '#7a7570', fontFamily: 'var(--font-mono)', fontSize: 'clamp(14px, 3.5vw, 16px)',
       }}>
         没有可对话的 NPC
       </div>
@@ -84,7 +84,7 @@ function NPCDialogue({ npcId, onBack }: { npcId: string; onBack: () => void }) {
         flex: 1, overflow: 'auto',
         display: 'flex', flexDirection: 'column',
         padding: '24px 22px 32px', gap: 18,
-        maxWidth: 580, margin: '0 auto', width: '100%',
+        maxWidth: 'clamp(320px, 90vw, 580px)', margin: '0 auto', width: '100%',
       }}>
         {/* 对话气泡 */}
         <AnimatePresence mode="wait">
@@ -128,7 +128,7 @@ function NPCDialogue({ npcId, onBack }: { npcId: string; onBack: () => void }) {
                 仔细听……
               </span>
               <span style={{
-                fontFamily: 'var(--font-dialogue)', fontSize: 13,
+                fontFamily: 'var(--font-dialogue)', fontSize: 'clamp(13px, 3.3vw, 16px)',
                 color: '#4a4540', lineHeight: 1.6,
               }}>
                 {currentNode.dialectClue}
@@ -149,14 +149,14 @@ function NPCDialogue({ npcId, onBack }: { npcId: string; onBack: () => void }) {
               }}
             >
               <span style={{
-                fontFamily: 'var(--font-mono)', fontSize: 10,
+                fontFamily: 'var(--font-mono)', fontSize: 'clamp(10px, 2.5vw, 12px)',
                 color: '#c4944a', letterSpacing: '0.08em',
                 display: 'block', marginBottom: 2,
               }}>
                 笔记
               </span>
               <span style={{
-                fontFamily: 'var(--font-dialogue)', fontSize: 13,
+                fontFamily: 'var(--font-dialogue)', fontSize: 'clamp(13px, 3.3vw, 16px)',
                 color: '#4a4540', lineHeight: 1.6,
               }}>
                 "{clueObtained}"
@@ -172,7 +172,7 @@ function NPCDialogue({ npcId, onBack }: { npcId: string; onBack: () => void }) {
         background: '#faf7f0',
         padding: '16px 22px',
         display: 'flex', flexDirection: 'column', gap: 8,
-        maxWidth: 580, margin: '0 auto', width: '100%',
+        maxWidth: 'clamp(320px, 90vw, 580px)', margin: '0 auto', width: '100%',
       }}>
         {options.length > 0 ? (
           options.map((opt) => (
@@ -184,12 +184,12 @@ function NPCDialogue({ npcId, onBack }: { npcId: string; onBack: () => void }) {
               whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.98 }}
               style={{
-                padding: '12px 16px',
+                padding: 'clamp(12px, 3vw, 14px) clamp(14px, 3.5vw, 18px)',
                 background: '#fff',
                 border: '1px solid #c44b3c',
                 borderRadius: 2,
                 textAlign: 'left',
-                fontSize: 14, color: '#1a1a1a',
+                fontSize: 'clamp(14px, 3.5vw, 16px)', color: '#1a1a1a',
                 cursor: 'pointer',
                 fontFamily: 'var(--font-body)',
               }}
@@ -207,7 +207,7 @@ function NPCDialogue({ npcId, onBack }: { npcId: string; onBack: () => void }) {
               background: '#1a1a1a',
               color: '#e8e4dc',
               border: 'none', borderRadius: 2,
-              fontSize: 14, fontWeight: 600,
+              fontSize: 'clamp(14px, 3.5vw, 16px)', fontWeight: 600,
               cursor: 'pointer',
               fontFamily: 'var(--font-body)',
             }}
@@ -225,7 +225,7 @@ function NPCDialogue({ npcId, onBack }: { npcId: string; onBack: () => void }) {
               background: '#4a4540',
               color: '#e8e4dc',
               border: 'none', borderRadius: 2,
-              fontSize: 14, fontWeight: 500,
+              fontSize: 'clamp(14px, 3.5vw, 16px)', fontWeight: 500,
               cursor: 'pointer',
               fontFamily: 'var(--font-body)',
             }}
@@ -276,10 +276,10 @@ function NpcHeader({
       </div>
 
       <div style={{ flex: 1 }}>
-        <div style={{ fontSize: 15, fontWeight: 600, color: '#1a1a1a' }}>
+        <div style={{ fontSize: 'clamp(14px, 3.8vw, 17px)', fontWeight: 600, color: '#1a1a1a' }}>
           {name}
         </div>
-        <div style={{ fontSize: 11, color: '#7a7570', fontFamily: 'var(--font-mono)' }}>
+        <div style={{ fontSize: 'clamp(11px, 2.8vw, 13px)', color: '#7a7570', fontFamily: 'var(--font-mono)' }}>
           {occupation}
           {dialectLevel >= 60 && ' · 口音较重'}
         </div>
@@ -299,7 +299,7 @@ function NpcHeader({
             borderRadius: 2,
             cursor: 'pointer',
             fontFamily: 'var(--font-mono)',
-            fontSize: 10, color: '#c44b3c',
+            fontSize: 'clamp(10px, 2.5vw, 12px)', color: '#c44b3c',
             letterSpacing: '0.06em', fontWeight: 600,
             whiteSpace: 'nowrap',
           }}
@@ -312,7 +312,7 @@ function NpcHeader({
       {/* 技能已用完 — 仅在高方言时显示 */}
       {!canUseSkill && dialectLevel >= 60 && (
         <span style={{
-          fontFamily: 'var(--font-mono)', fontSize: 10,
+          fontFamily: 'var(--font-mono)', fontSize: 'clamp(10px, 2.5vw, 12px)',
           color: '#b0aaa5', letterSpacing: '0.04em',
         }}>
           方言技能已用完
@@ -338,7 +338,7 @@ function ChatBubble({
       alignItems: isNpc ? 'flex-start' : 'flex-end',
     }}>
       <span style={{
-        fontSize: 10, fontFamily: 'var(--font-mono)',
+        fontSize: 'clamp(10px, 2.5vw, 12px)', fontFamily: 'var(--font-mono)',
         color: '#b0aaa5', letterSpacing: '0.06em',
         marginBottom: 4, paddingLeft: isNpc ? 6 : 0,
         paddingRight: isNpc ? 0 : 6, userSelect: 'none',
@@ -346,11 +346,11 @@ function ChatBubble({
         {speaker}
       </span>
       <div style={{
-        maxWidth: '88%', padding: '12px 16px',
+        maxWidth: '88%', padding: 'clamp(12px, 3vw, 14px) clamp(14px, 3.5vw, 18px)',
         background: isNpc ? '#fff' : '#2c2c2c',
         color: isNpc ? '#1a1a1a' : '#e8e4dc',
         borderRadius: isNpc ? '12px 12px 12px 3px' : '12px 12px 3px 12px',
-        fontSize: 14, lineHeight: 1.8,
+        fontSize: 'clamp(14px, 3.5vw, 16px)', lineHeight: 1.8,
         fontFamily: isNpc ? 'var(--font-dialogue)' : 'var(--font-body)',
         boxShadow: isNpc ? '0 1px 3px rgba(0,0,0,0.06)' : '0 1px 4px rgba(0,0,0,0.15)',
         border: isNpc ? '1px solid #e8e0d0' : 'none',
@@ -360,7 +360,7 @@ function ChatBubble({
       </div>
       {dialectNote && (
         <span style={{
-          fontSize: 10, fontFamily: 'var(--font-mono)',
+          fontSize: 'clamp(10px, 2.5vw, 12px)', fontFamily: 'var(--font-mono)',
           color: '#b0aaa5', fontStyle: 'italic',
           marginTop: 3, paddingLeft: 6,
         }}>

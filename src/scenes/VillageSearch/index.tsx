@@ -159,13 +159,13 @@ function InteractionLayer({
   const blockedPaths = paths.filter((p) => p.blocked)
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '16px 20px', gap: 10, maxWidth: 580, margin: '0 auto', width: '100%' }}>
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: 'clamp(8px, 2vh, 16px) clamp(10px, 3vw, 20px)', gap: 'clamp(6px, 1.2vh, 10px)', maxWidth: 580, margin: '0 auto', width: '100%' }}>
 
       {/* 到达提示 */}
       <AnimatePresence>
         {arrived && (
           <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} style={{ textAlign: 'center' }}>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: '#fff', letterSpacing: '0.1em', background: 'rgba(0,0,0,0.5)', padding: '4px 16px', borderRadius: 2, backdropFilter: 'blur(4px)' }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(11px, 2.8vw, 14px)', color: '#fff', letterSpacing: '0.1em', background: 'rgba(0,0,0,0.5)', padding: '4px 16px', borderRadius: 2, backdropFilter: 'blur(4px)' }}>
               已到达 {currentNode.name}
             </span>
           </motion.div>
@@ -175,21 +175,21 @@ function InteractionLayer({
       {/* 验证结果 */}
       <AnimatePresence>
         {verifyResult === 'checking' && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-mono)', fontSize: 12, letterSpacing: '0.06em' }}>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-mono)', fontSize: 'clamp(12px, 3vw, 16px)', letterSpacing: '0.06em' }}>
             <motion.span animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 0.8, repeat: Infinity }}>●</motion.span>
             确认中……
           </motion.div>
         )}
         {verifyResult === 'not_here' && (
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, color: '#c44b3c', background: 'rgba(196,75,60,0.12)', padding: '12px 18px', borderRadius: 2, alignSelf: 'center', maxWidth: 400 }}>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, fontWeight: 600, letterSpacing: '0.06em' }}>不是这家。</span>
+            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, color: '#c44b3c', background: 'rgba(196,75,60,0.12)', padding: 'clamp(8px, 1.5vw, 12px) clamp(12px, 3vw, 18px)', borderRadius: 2, alignSelf: 'center', maxWidth: 400 }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(12px, 3vw, 16px)', fontWeight: 600, letterSpacing: '0.06em' }}>不是这家。</span>
             {failReason && (
-              <span style={{ fontFamily: 'var(--font-dialogue)', fontSize: 13, color: 'rgba(255,255,255,0.55)', lineHeight: 1.6, textAlign: 'center' }}>
+              <span style={{ fontFamily: 'var(--font-dialogue)', fontSize: 'clamp(13px, 3.5vw, 16px)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.6, textAlign: 'center' }}>
                 {failReason}
               </span>
             )}
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'rgba(255,255,255,0.25)', letterSpacing: '0.08em' }}>继续找</span>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(10px, 2.5vw, 12px)', color: 'rgba(255,255,255,0.25)', letterSpacing: '0.08em' }}>继续找</span>
           </motion.div>
         )}
         {verifyResult === 'confirmed' && (
@@ -204,23 +204,23 @@ function InteractionLayer({
 
       {/* 场景描述 */}
       <motion.div key={currentNode.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
-        style={{ background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(8px)', borderRadius: 2, padding: '14px 16px', border: '1px solid rgba(255,255,255,0.08)' }}>
+        style={{ background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(8px)', borderRadius: 2, padding: 'clamp(10px, 2vw, 14px) clamp(10px, 2.5vw, 16px)', border: '1px solid rgba(255,255,255,0.08)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 9, color: 'rgba(255,255,255,0.4)', letterSpacing: '0.1em' }}>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(9px, 2.2vw, 11px)', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.1em' }}>
             {currentNode.type === 'residential' ? 'HOUSE · 一户人家' :
              currentNode.type === 'empty' ? 'EMPTY · 无人' :
              currentNode.type === 'natural_space' ? 'NATURE · 自然空间' :
              `FIELD · ${currentNode.area}`}
           </div>
-          {isDeadEnd && <span style={{ fontFamily: 'var(--font-mono)', fontSize: 9, color: '#c44b3c', letterSpacing: '0.06em' }}>这里不是目标</span>}
+          {isDeadEnd && <span style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(9px, 2.2vw, 11px)', color: '#c44b3c', letterSpacing: '0.06em' }}>这里不是目标</span>}
         </div>
-        <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 20, fontWeight: 700, color: '#fff', margin: '0 0 6px 0', letterSpacing: '0.06em' }}>{currentNode.name}</h2>
-        <p style={{ fontFamily: 'var(--font-dialogue)', fontSize: 13, lineHeight: 1.8, color: 'rgba(255,255,255,0.7)', margin: 0 }}>{currentNode.description}</p>
+        <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(18px, 5vw, 22px)', fontWeight: 700, color: '#fff', margin: '0 0 6px 0', letterSpacing: '0.06em' }}>{currentNode.name}</h2>
+        <p style={{ fontFamily: 'var(--font-dialogue)', fontSize: 'clamp(13px, 3.5vw, 16px)', lineHeight: 1.8, color: 'rgba(255,255,255,0.7)', margin: 0 }}>{currentNode.description}</p>
         {isHot && (
           <motion.p
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3, duration: 0.5 }}
             style={{
-              fontFamily: 'var(--font-dialogue)', fontSize: 12, lineHeight: 1.7,
+              fontFamily: 'var(--font-dialogue)', fontSize: 'clamp(12px, 3vw, 16px)', lineHeight: 1.7,
               color: 'rgba(255,200,120,0.55)', margin: '8px 0 0 0', fontStyle: 'italic',
             }}
           >
@@ -234,10 +234,10 @@ function InteractionLayer({
         {clues.length > 0 && (
           <motion.div key={`c-${clues.length}`} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.4 }}
             style={{ borderLeft: '2px solid #c4944a', paddingLeft: 10 }}>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 9, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.1em', display: 'block', marginBottom: 2 }}>笔记</span>
-            <span style={{ fontFamily: 'var(--font-dialogue)', fontSize: 12, color: 'rgba(255,255,255,0.6)', lineHeight: 1.6 }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(9px, 2.2vw, 11px)', color: 'rgba(255,255,255,0.3)', letterSpacing: '0.1em', display: 'block', marginBottom: 2 }}>笔记</span>
+            <span style={{ fontFamily: 'var(--font-dialogue)', fontSize: 'clamp(12px, 3vw, 16px)', color: 'rgba(255,255,255,0.6)', lineHeight: 1.6 }}>
               "{clues[clues.length - 1]!.text}"
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 9, color: 'rgba(255,255,255,0.25)', marginLeft: 8 }}>——{clues[clues.length - 1]!.source}</span>
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(9px, 2.2vw, 11px)', color: 'rgba(255,255,255,0.25)', marginLeft: 8 }}>——{clues[clues.length - 1]!.source}</span>
             </span>
           </motion.div>
         )}
@@ -272,7 +272,7 @@ function InteractionLayer({
       {isDeadEnd && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}
           style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '8px 0' }}>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.08em' }}>这里没有要找的人。折返吧。</span>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(10px, 2.5vw, 12px)', color: 'rgba(255,255,255,0.3)', letterSpacing: '0.08em' }}>这里没有要找的人。折返吧。</span>
         </motion.div>
       )}
     </div>
@@ -295,31 +295,31 @@ function CandidatePanel({
 
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.15 }}
-      style={{ background: 'rgba(107, 138, 90, 0.08)', backdropFilter: 'blur(6px)', border: '1px solid rgba(107, 138, 90, 0.2)', borderRadius: 2, padding: '14px 16px' }}>
-      <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.08em', marginBottom: 10 }}>
+      style={{ background: 'rgba(107, 138, 90, 0.08)', backdropFilter: 'blur(6px)', border: '1px solid rgba(107, 138, 90, 0.2)', borderRadius: 2, padding: 'clamp(10px, 2vw, 14px) clamp(10px, 2.5vw, 16px)' }}>
+      <div style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(10px, 2.5vw, 12px)', color: 'rgba(255,255,255,0.35)', letterSpacing: '0.08em', marginBottom: 10 }}>
         {currentNodeName}——这可能就是要找的人家
       </div>
 
       {matchCount > 0 ? (
         <div style={{ marginBottom: 12, display: 'flex', flexDirection: 'column', gap: 3 }}>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 9, color: 'rgba(255,255,255,0.25)', letterSpacing: '0.06em' }}>用已有线索对比：</span>
-          {hasDirection && <span style={{ fontFamily: 'var(--font-dialogue)', fontSize: 11, color: 'rgba(255,255,255,0.4)', fontStyle: 'italic' }}>方向对吗？</span>}
-          {hasGate && <span style={{ fontFamily: 'var(--font-dialogue)', fontSize: 11, color: 'rgba(255,255,255,0.4)', fontStyle: 'italic' }}>门是什么颜色？</span>}
-          {hasMill && <span style={{ fontFamily: 'var(--font-dialogue)', fontSize: 11, color: 'rgba(255,255,255,0.4)', fontStyle: 'italic' }}>有没有石磨？</span>}
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(9px, 2.2vw, 11px)', color: 'rgba(255,255,255,0.25)', letterSpacing: '0.06em' }}>用已有线索对比：</span>
+          {hasDirection && <span style={{ fontFamily: 'var(--font-dialogue)', fontSize: 'clamp(11px, 2.8vw, 14px)', color: 'rgba(255,255,255,0.4)', fontStyle: 'italic' }}>方向对吗？</span>}
+          {hasGate && <span style={{ fontFamily: 'var(--font-dialogue)', fontSize: 'clamp(11px, 2.8vw, 14px)', color: 'rgba(255,255,255,0.4)', fontStyle: 'italic' }}>门是什么颜色？</span>}
+          {hasMill && <span style={{ fontFamily: 'var(--font-dialogue)', fontSize: 'clamp(11px, 2.8vw, 14px)', color: 'rgba(255,255,255,0.4)', fontStyle: 'italic' }}>有没有石磨？</span>}
         </div>
       ) : (
         <div style={{ marginBottom: 12 }}>
-          <span style={{ fontFamily: 'var(--font-dialogue)', fontSize: 11, color: 'rgba(255,255,255,0.3)', fontStyle: 'italic' }}>还没有线索可以比对。</span>
+          <span style={{ fontFamily: 'var(--font-dialogue)', fontSize: 'clamp(11px, 2.8vw, 14px)', color: 'rgba(255,255,255,0.3)', fontStyle: 'italic' }}>还没有线索可以比对。</span>
         </div>
       )}
 
       <div style={{ display: 'flex', gap: 10 }}>
         <motion.button onClick={onApproach} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
-          style={{ flex: 1, padding: '10px 12px', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: 2, color: '#fff', fontSize: 13, fontWeight: 500, cursor: 'pointer', fontFamily: 'var(--font-body)' }}>
+          style={{ flex: 1, padding: 'clamp(12px, 3vw, 14px) clamp(12px, 3vw, 16px)', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: 2, color: '#fff', fontSize: 'clamp(13px, 3.5vw, 16px)', fontWeight: 500, cursor: 'pointer', fontFamily: 'var(--font-body)' }}>
           走近看看
         </motion.button>
         <motion.button onClick={onCallConfirm} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
-          style={{ flex: 1, padding: '10px 12px', background: 'rgba(196, 75, 60, 0.15)', border: '1px solid rgba(196, 75, 60, 0.25)', borderRadius: 2, color: '#fff', fontSize: 13, fontWeight: 500, cursor: 'pointer', fontFamily: 'var(--font-body)' }}>
+          style={{ flex: 1, padding: 'clamp(12px, 3vw, 14px) clamp(12px, 3vw, 16px)', background: 'rgba(196, 75, 60, 0.15)', border: '1px solid rgba(196, 75, 60, 0.25)', borderRadius: 2, color: '#fff', fontSize: 'clamp(13px, 3.5vw, 16px)', fontWeight: 500, cursor: 'pointer', fontFamily: 'var(--font-body)' }}>
           打电话确认
         </motion.button>
       </div>
@@ -332,7 +332,7 @@ function CandidatePanel({
 function FieldStatusBar({ locationName, steps, weather, resolved }: { locationName: string; steps: number; weather: { id: string; label: string }; resolved: boolean }) {
   const isHot = weather.id === 'hot'
   return (
-    <div style={{ display: 'flex', alignItems: 'center', padding: '10px 20px', background: 'rgba(0,0,0,0.65)', backdropFilter: 'blur(10px)', color: '#c0b8a8', gap: 18, fontSize: 11, fontFamily: 'var(--font-mono)', letterSpacing: '0.04em', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+    <div style={{ display: 'flex', alignItems: 'center', padding: 'clamp(8px, 1.5vw, 10px) clamp(12px, 3vw, 20px)', background: 'rgba(0,0,0,0.65)', backdropFilter: 'blur(10px)', color: '#c0b8a8', gap: 18, fontSize: 'clamp(11px, 2.8vw, 14px)', fontFamily: 'var(--font-mono)', letterSpacing: '0.04em', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
       <span><span style={{ color: 'rgba(255,255,255,0.35)' }}>位置</span>{' '}<span style={{ color: '#fff', fontWeight: 600 }}>{locationName}</span></span>
       <span style={{ color: 'rgba(255,255,255,0.15)' }}>|</span>
       <span><span style={{ color: 'rgba(255,255,255,0.35)' }}>步数</span>{' '}<span style={{ color: '#e8e4dc' }}>{steps}</span></span>
@@ -340,7 +340,7 @@ function FieldStatusBar({ locationName, steps, weather, resolved }: { locationNa
       {resolved && <span style={{ color: '#6b8a5a', fontSize: 10 }}>✓ 已确认目标</span>}
       <span style={{
         color: isHot ? '#e8a050' : 'rgba(255,255,255,0.3)',
-        fontSize: 10, marginLeft: 8, fontWeight: isHot ? 600 : 400,
+        fontSize: 'clamp(10px, 2.5vw, 12px)', marginLeft: 8, fontWeight: isHot ? 600 : 400,
       }}>
         █村 · {isHot ? '☀ 毒辣日头' : weather.label}
       </span>
@@ -386,7 +386,7 @@ function DirectionChoices({ activePaths, blockedPaths, visited, onMove }: { acti
   if (all.length === 0) return null
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
-      <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.1em', paddingLeft: 4 }}>你可以往这些方向走</span>
+      <span style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(10px, 2.5vw, 12px)', color: 'rgba(255,255,255,0.35)', letterSpacing: '0.1em', paddingLeft: 4 }}>你可以往这些方向走</span>
       {all.map((p) => {
         const vis = visited.has(p.nodeId); const bl = p.blocked
         const dirArrow = { '东': '→', '西': '←', '南': '↓', '北': '↑' }[p.direction] ?? '→'
@@ -395,17 +395,17 @@ function DirectionChoices({ activePaths, blockedPaths, visited, onMove }: { acti
             initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }}
             whileHover={!bl ? { scale: 1.02, backgroundColor: 'rgba(255,255,255,0.12)' } : undefined}
             whileTap={!bl ? { scale: 0.98 } : undefined} transition={{ duration: 0.25 }}
-            style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '11px 14px',
+            style={{ display: 'flex', alignItems: 'center', gap: 10, padding: 'clamp(12px, 3vw, 14px) clamp(12px, 3vw, 16px)',
               background: bl ? 'rgba(0,0,0,0.3)' : 'rgba(0,0,0,0.45)', backdropFilter: 'blur(6px)',
               border: `1px solid ${bl ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.1)'}`, borderRadius: 2,
               cursor: bl ? 'default' : 'pointer', textAlign: 'left' as const, fontFamily: 'inherit',
               color: bl ? 'rgba(255,255,255,0.3)' : '#fff', opacity: bl ? 0.5 : 1 }}>
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: 16, color: bl ? 'rgba(255,255,255,0.2)' : '#c44b3c', fontWeight: 700, width: 22, textAlign: 'center', flexShrink: 0 }}>{dirArrow}</span>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 13, fontWeight: 500, marginBottom: 2 }}>{p.name}{vis && !bl ? <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)', fontFamily: 'var(--font-mono)', marginLeft: 6 }}>(去过)</span> : null}</div>
-              <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-mono)' }}>{bl ? p.blockReason : `${p.distance}${p.npcCount > 0 ? ' · 有人' : ''} · ${p.clueLikelihood}`}</div>
+              <div style={{ fontSize: 'clamp(13px, 3.5vw, 16px)', fontWeight: 500, marginBottom: 2 }}>{p.name}{vis && !bl ? <span style={{ fontSize: 'clamp(10px, 2.5vw, 12px)', color: 'rgba(255,255,255,0.3)', fontFamily: 'var(--font-mono)', marginLeft: 6 }}>(去过)</span> : null}</div>
+              <div style={{ fontSize: 'clamp(10px, 2.5vw, 12px)', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-mono)' }}>{bl ? p.blockReason : `${p.distance}${p.npcCount > 0 ? ' · 有人' : ''} · ${p.clueLikelihood}`}</div>
             </div>
-            {!bl && <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'rgba(255,255,255,0.25)' }}>→</span>}
+            {!bl && <span style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(10px, 2.5vw, 12px)', color: 'rgba(255,255,255,0.25)' }}>→</span>}
           </motion.button>
         )
       })}
@@ -417,11 +417,11 @@ function NpcInteractionPanel({ npcs, onInteract }: { npcs: NpcInfo[]; onInteract
   if (npcs.length === 0) return null; const npc = npcs[0]!
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.2 }}
-      style={{ background: 'rgba(196, 75, 60, 0.12)', backdropFilter: 'blur(6px)', border: '1px solid rgba(196, 75, 60, 0.35)', borderRadius: 2, padding: '14px 16px', display: 'flex', alignItems: 'center', gap: 14 }}>
+      style={{ background: 'rgba(196, 75, 60, 0.12)', backdropFilter: 'blur(6px)', border: '1px solid rgba(196, 75, 60, 0.35)', borderRadius: 2, padding: 'clamp(10px, 2vw, 14px) clamp(10px, 2.5vw, 16px)', display: 'flex', alignItems: 'center', gap: 14 }}>
       <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, flexShrink: 0 }}>👤</div>
-      <div style={{ flex: 1 }}><div style={{ fontSize: 13, fontWeight: 600, color: '#fff', marginBottom: 2 }}>{npc.name} · {npc.occupation}</div><div style={{ fontSize: 11, color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-mono)' }}>可以上前询问</div></div>
+      <div style={{ flex: 1 }}><div style={{ fontSize: 'clamp(13px, 3.5vw, 16px)', fontWeight: 600, color: '#fff', marginBottom: 2 }}>{npc.name} · {npc.occupation}</div><div style={{ fontSize: 'clamp(11px, 2.8vw, 14px)', color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-mono)' }}>可以上前询问</div></div>
       <motion.button onClick={() => onInteract(npc.id)} whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
-        style={{ background: '#c44b3c', color: '#fff', border: 'none', borderRadius: 2, padding: '8px 16px', fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.06em', cursor: 'pointer', fontWeight: 600, whiteSpace: 'nowrap' }}>上前询问</motion.button>
+        style={{ background: '#c44b3c', color: '#fff', border: 'none', borderRadius: 2, padding: 'clamp(10px, 2.5vw, 12px) clamp(12px, 3vw, 16px)', fontFamily: 'var(--font-mono)', fontSize: 'clamp(11px, 2.8vw, 14px)', letterSpacing: '0.06em', cursor: 'pointer', fontWeight: 600, whiteSpace: 'nowrap' }}>上前询问</motion.button>
     </motion.div>
   )
 }
@@ -429,13 +429,13 @@ function NpcInteractionPanel({ npcs, onInteract }: { npcs: NpcInfo[]; onInteract
 function LandmarkHints({ landmarks }: { landmarks: VisibleLandmark[] }) {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, delay: 0.3 }}
-      style={{ border: '1px dashed rgba(255,255,255,0.1)', borderRadius: 2, padding: '12px 14px', background: 'rgba(0,0,0,0.25)', backdropFilter: 'blur(4px)' }}>
-      <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.1em', marginBottom: 8, display: 'block' }}>远处可以看到</span>
+      style={{ border: '1px dashed rgba(255,255,255,0.1)', borderRadius: 2, padding: 'clamp(8px, 1.5vw, 12px) clamp(8px, 2vw, 14px)', background: 'rgba(0,0,0,0.25)', backdropFilter: 'blur(4px)' }}>
+      <span style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(10px, 2.5vw, 12px)', color: 'rgba(255,255,255,0.3)', letterSpacing: '0.1em', marginBottom: 8, display: 'block' }}>远处可以看到</span>
       {landmarks.map((lm) => (
-        <div key={lm.nodeId} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 11, marginBottom: 4 }}>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'rgba(255,255,255,0.3)', whiteSpace: 'nowrap' }}>{lm.direction}方</span>
+        <div key={lm.nodeId} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 'clamp(11px, 2.8vw, 14px)', marginBottom: 4 }}>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(10px, 2.5vw, 12px)', color: 'rgba(255,255,255,0.3)', whiteSpace: 'nowrap' }}>{lm.direction}方</span>
           <span style={{ color: 'rgba(255,255,255,0.55)' }}>{lm.name}</span>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'rgba(255,255,255,0.25)' }}>· {lm.distance}</span>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(10px, 2.5vw, 12px)', color: 'rgba(255,255,255,0.25)' }}>· {lm.distance}</span>
         </div>
       ))}
     </motion.div>
@@ -445,7 +445,7 @@ function LandmarkHints({ landmarks }: { landmarks: VisibleLandmark[] }) {
 function FieldJournal({ visited, currentNodeId, steps, clues }: { visited: Set<string>; currentNodeId: string; steps: number; clues: ClueRecord[] }) {
   const list = Array.from(visited).slice(-8)
   return (
-    <div style={{ background: 'rgba(0,0,0,0.65)', backdropFilter: 'blur(10px)', borderTop: '1px solid rgba(255,255,255,0.06)', padding: '10px 20px', fontFamily: 'var(--font-mono)', fontSize: 10, color: 'rgba(255,255,255,0.4)', letterSpacing: '0.04em', display: 'flex', alignItems: 'center', gap: 6, overflowX: 'auto' }}>
+    <div style={{ background: 'rgba(0,0,0,0.65)', backdropFilter: 'blur(10px)', borderTop: '1px solid rgba(255,255,255,0.06)', padding: 'clamp(8px, 1.5vw, 10px) clamp(12px, 3vw, 20px)', fontFamily: 'var(--font-mono)', fontSize: 'clamp(10px, 2.5vw, 12px)', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.04em', display: 'flex', alignItems: 'center', gap: 6, overflowX: 'auto' }}>
       <span style={{ color: 'rgba(255,255,255,0.3)', whiteSpace: 'nowrap' }}>路线：</span>
       {list.map((id, i) => (
         <span key={id} style={{ display: 'flex', alignItems: 'center', gap: 4, whiteSpace: 'nowrap' }}>
@@ -488,20 +488,20 @@ function FatigueOverlay({ onDismiss, onGiveUp, steps }: { onDismiss: () => void;
         {/* 标题 */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <span style={{ width: 28, height: 2, background: '#c44b3c' }} />
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: '#c44b3c', letterSpacing: '0.1em', fontWeight: 600 }}>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(10px, 2.5vw, 12px)', color: '#c44b3c', letterSpacing: '0.1em', fontWeight: 600 }}>
             访员笔记
           </span>
         </div>
 
         <div>
           <h2 style={{
-            fontFamily: 'var(--font-display)', fontSize: 20, fontWeight: 700,
+            fontFamily: 'var(--font-display)', fontSize: 'clamp(18px, 5vw, 22px)', fontWeight: 700,
             color: '#1a1a1a', letterSpacing: '0.04em', margin: '0 0 10px 0',
           }}>
             耐心快要耗尽了
           </h2>
           <p style={{
-            fontFamily: 'var(--font-dialogue)', fontSize: 14, lineHeight: 1.9,
+            fontFamily: 'var(--font-dialogue)', fontSize: 'clamp(14px, 3.5vw, 16px)', lineHeight: 1.9,
             color: '#4a4540', margin: 0,
           }}>
             已经走了 <span style={{ fontFamily: 'var(--font-mono)', color: '#c44b3c', fontWeight: 600 }}>{steps}</span> 步，
@@ -509,7 +509,7 @@ function FatigueOverlay({ onDismiss, onGiveUp, steps }: { onDismiss: () => void;
             但目标家庭仍然没有找到。
           </p>
           <p style={{
-            fontFamily: 'var(--font-dialogue)', fontSize: 14, lineHeight: 1.9,
+            fontFamily: 'var(--font-dialogue)', fontSize: 'clamp(14px, 3.5vw, 16px)', lineHeight: 1.9,
             color: '#4a4540', margin: '12px 0 0 0',
           }}>
             在真实的田野调查中，
@@ -529,7 +529,7 @@ function FatigueOverlay({ onDismiss, onGiveUp, steps }: { onDismiss: () => void;
               flex: 1, padding: '12px 16px',
               background: '#1a1a1a', color: '#e8e4dc',
               border: 'none', borderRadius: 2,
-              fontSize: 13, fontWeight: 600,
+              fontSize: 'clamp(13px, 3.5vw, 16px)', fontWeight: 600,
               fontFamily: 'var(--font-body)', cursor: 'pointer',
             }}
           >
@@ -546,7 +546,7 @@ function FatigueOverlay({ onDismiss, onGiveUp, steps }: { onDismiss: () => void;
               background: 'rgba(196,75,60,0.08)',
               color: '#c44b3c',
               border: '1px solid rgba(196,75,60,0.3)', borderRadius: 2,
-              fontSize: 13, fontWeight: 600,
+              fontSize: 'clamp(13px, 3.5vw, 16px)', fontWeight: 600,
               fontFamily: 'var(--font-body)', cursor: 'pointer',
             }}
           >

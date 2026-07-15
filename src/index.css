@@ -231,6 +231,47 @@ img {
   outline-offset: 2px;
 }
 
+/* ── 最小触控区域 ── */
+button, [role="button"], a {
+  min-height: 44px;
+  min-width: 44px;
+}
+@media (pointer: coarse) {
+  button, [role="button"], a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* ── 移动端文字最小16px（防止iOS缩放） ── */
+@media (max-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+}
+
+/* ── 图片容器 ── */
+img, video {
+  object-fit: cover;
+}
+
+/* ── 移动端减少阴影+blur（性能） ── */
+@media (max-width: 768px) {
+  * {
+    --shadow-phone: 0 4px 16px rgba(0,0,0,0.2) !important;
+  }
+}
+
+/* ── 横屏适配 ── */
+@media (orientation: landscape) and (max-height: 500px) {
+  #root {
+    min-height: 100vh;
+  }
+}
+
 /* ── 减少动画偏好 ── */
 @media (prefers-reduced-motion: reduce) {
   *,
