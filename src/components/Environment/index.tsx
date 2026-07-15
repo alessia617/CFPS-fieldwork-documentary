@@ -4,14 +4,11 @@ import { getSceneVisual } from '../../data/sceneVisuals'
 /* ================================================================
    Environment — NPR 村庄场景背景
 
-   加载优先级：
-   1. public/assets/village/scene_*.webp（真实 NPR 处理照片）
-   2. SVG 降级（SVG 滤镜模拟照片质感 — 当前方案）
-   3. DocumentaryFilter（暗角 + 胶片颗粒 + 色彩分级）
-
-   注：因企业安全策略阻止外部图库访问，
-   当前使用高级 SVG NPR 渲染模拟真实照片经艺术处理后的效果。
-   WebP 照片就绪后放入 public/assets/village/ 即可自动替换。
+   优化管线：
+   1. <picture> 响应式三分辨率: 400w(mobile) / 800w(tablet) / 1400w(desktop)
+   2. loading="lazy" + decoding="async"
+   3. SVG 降级（照片加载中可见）
+   4. DocumentaryFilter（暗角 + 胶片颗粒 + 色彩分级）
    ================================================================ */
 
 export interface EnvironmentProps {
@@ -37,18 +34,20 @@ export function Environment({ nodeId }: EnvironmentProps) {
         {/* Layer 0: SVG 降级 — 始终渲染，照片加载后自动被覆盖 */}
         <ScenePlaceholder nodeId={nodeId} visual={visual} />
 
-        {/* Layer 1: 真实照片 + CSS 滤镜色彩分级 */}
+        {/* Layer 1: 响应式图片 + 懒加载 + 移动端自动降分辨率 */}
         <img
           src={visual.imagePath}
+          srcSet={visual.srcSet}
+          sizes={visual.srcSet ? '(max-width: 480px) 400px, (max-width: 900px) 800px, 1400px' : undefined}
           alt=""
+          loading="lazy"
+          decoding="async"
           style={{
-            position: 'absolute',
-            inset: 0,
-            width: '100%',
-            height: '100%',
+            position: 'absolute', inset: 0,
+            width: '100%', height: '100%',
             objectFit: 'cover',
-            zIndex: 1,
             filter: visual.filter,
+            zIndex: 1,
           }}
         />
 
