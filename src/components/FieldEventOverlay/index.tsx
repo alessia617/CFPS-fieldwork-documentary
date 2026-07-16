@@ -21,6 +21,7 @@ export function FieldEventOverlay({ event, onDismiss }: FieldEventOverlayProps) 
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6 }}
+          onClick={onDismiss}
           style={{
             position: 'absolute',
             inset: 0,
@@ -29,9 +30,8 @@ export function FieldEventOverlay({ event, onDismiss }: FieldEventOverlayProps) 
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
-            pointerEvents: 'none',
+            cursor: 'pointer',
           }}
-          onClick={onDismiss}
         >
           {/* 半透明暗底 */}
           <div
@@ -39,6 +39,7 @@ export function FieldEventOverlay({ event, onDismiss }: FieldEventOverlayProps) 
               position: 'absolute',
               inset: 0,
               background: 'rgba(10, 8, 6, 0.55)',
+              pointerEvents: 'none',
             }}
           />
 
@@ -110,23 +111,21 @@ export function FieldEventOverlay({ event, onDismiss }: FieldEventOverlayProps) 
               }}
             />
 
-            {/* 点击继续提示 */}
+            {/* 点击任意处继续 */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 3.5, duration: 0.6 }}
+              transition={{ delay: 3.5, duration: 0.8 }}
               style={{
                 fontFamily: 'var(--font-mono)',
-                fontSize: 10,
-                color: 'rgba(255,255,255,0.25)',
+                fontSize: 'clamp(11px, 2.8vw, 13px)',
+                color: 'rgba(255,255,255,0.4)',
                 letterSpacing: '0.1em',
-                marginTop: 8,
-                cursor: 'pointer',
-                pointerEvents: 'auto',
+                marginTop: 12,
+                pointerEvents: 'none',
               }}
-              onClick={onDismiss}
             >
-              点击继续
+              点击任意处继续
             </motion.div>
           </motion.div>
         </motion.div>

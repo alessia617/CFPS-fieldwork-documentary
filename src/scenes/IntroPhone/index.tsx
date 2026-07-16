@@ -38,10 +38,8 @@ function FloatLayer({
     <div style={{
       minHeight: '100svh', background: '#f2e8d5',
       display: 'flex', flexDirection: 'column',
-      alignItems: 'center', paddingTop: 'clamp(20px, 6vh, 60px)',
-      paddingLeft: 'clamp(8px, 3vw, 0px)',
-      paddingRight: 'clamp(8px, 3vw, 0px)',
-      gap: 12,
+      alignItems: 'center', justifyContent: 'center',
+      padding: 'clamp(12px, 3vh, 24px)',
     }}>
       {/* ── 阶段标签 ── */}
       <AnimatePresence>
@@ -52,6 +50,7 @@ function FloatLayer({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -4 }}
             transition={{ duration: 0.3 }}
+            style={{ marginBottom: 'clamp(6px, 1.5vh, 12px)' }}
           >
             <span style={{
               fontFamily: 'var(--font-mono)', fontSize: 'clamp(10px, 2.5vw, 12px)',
@@ -65,13 +64,51 @@ function FloatLayer({
         )}
       </AnimatePresence>
 
-      {/* ── 桌面三栏 / 移动端堆叠 ── */}
-      <div style={{
-        display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center',
-        width: '100%', maxWidth: 1100, gap: 'clamp(8px, 2vw, 20px)',
+      {/* ── 系统消息 ── */}
+      <AnimatePresence>
+        {systemMsg && (
+          <motion.div
+            key={systemMsg.text}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            style={{ marginBottom: 'clamp(8px, 2vh, 16px)' }}
+          >
+            <div style={{
+              border: '1.5px solid #6b8a5a',
+              padding: 'clamp(6px, 1.5vw, 8px) clamp(12px, 3vw, 18px)',
+              background: 'rgba(107,138,90,0.06)', textAlign: 'center',
+            }}>
+              <div style={{
+                fontFamily: 'var(--font-mono)', fontSize: 'clamp(10px, 2.5vw, 12px)',
+                color: '#6b8a5a', fontWeight: 600, letterSpacing: '0.08em',
+                marginBottom: systemMsg.detail ? 3 : 0,
+              }}>
+                ✓ {systemMsg.text}
+              </div>
+              {systemMsg.detail && (
+                <div style={{
+                  fontFamily: 'var(--font-mono)', fontSize: 'clamp(9px, 2vw, 11px)',
+                  color: '#8aa678', letterSpacing: '0.06em',
+                }}>
+                  {systemMsg.detail}
+                </div>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ── 主体：桌面三栏 / 移动端手机居中 — 气泡堆叠在下方 ── */}
+      <div className="intro-phone-layout" style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr auto 1fr',
+        width: '100%', maxWidth: 1100, gap: 'clamp(4px, 1.5vw, 20px)',
+        alignItems: 'start',
       }}>
-        {/* 左 RESPONDENT — 移动端收起 */}
-        <div style={{ flex: '1 1 180px', minWidth: 0, maxWidth: 360, display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {/* 左栏 RESPONDENT — 移动端隐藏 */}
+        <div className="intro-side-left" style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingTop: 'clamp(20px, 5vh, 80px)' }}>
           <span style={{
             fontFamily: 'var(--font-mono)', fontSize: 'clamp(10px, 2vw, 11px)',
             color: '#b0aaa5', letterSpacing: '0.1em', paddingLeft: 8,
@@ -93,82 +130,13 @@ function FloatLayer({
           </AnimatePresence>
         </div>
 
-        {/* 中 — 手机 */}
-        <div style={{ flex: '0 0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: 'clamp(0px, 3vh, 30px)' }}>
-          <AnimatePresence>
-            {systemMsg && (
-              <motion.div
-                key={systemMsg.text}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.4 }}
-                style={{ marginBottom: 'clamp(8px, 2vh, 16px)' }}
-              >
-                <div style={{
-                  border: '1.5px solid #6b8a5a',
-                  padding: 'clamp(6px, 1.5vw, 8px) clamp(12px, 3vw, 18px)',
-                  background: 'rgba(107,138,90,0.06)', textAlign: 'center',
-                }}>
-                  <div style={{
-                    fontFamily: 'var(--font-mono)', fontSize: 'clamp(10px, 2.5vw, 12px)',
-                    color: '#6b8a5a', fontWeight: 600, letterSpacing: '0.08em',
-                    marginBottom: systemMsg.detail ? 3 : 0,
-                  }}>
-                    ✓ {systemMsg.text}
-                  </div>
-                  {systemMsg.detail && (
-                    <div style={{
-                      fontFamily: 'var(--font-mono)', fontSize: 'clamp(9px, 2vw, 11px)',
-                      color: '#8aa678', letterSpacing: '0.06em',
-                    }}>
-                      {systemMsg.detail}
-                    </div>
-                  )}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
+        {/* 中栏 — 手机 */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <Phone tilt={6} />
-
-          <AnimatePresence>
-            {endingKeywords && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                onAnimationComplete={() => { setTimeout(() => onSceneComplete(), 2500) }}
-                transition={{ duration: 1, delay: 1.0 }}
-                style={{
-                  display: 'flex', flexDirection: 'column',
-                  alignItems: 'center', gap: 'clamp(8px, 2vh, 12px)',
-                  marginTop: 'clamp(12px, 3vh, 20px)',
-                }}
-              >
-                <span style={{
-                  fontFamily: 'var(--font-display)',
-                  fontSize: 'clamp(18px, 5vw, 24px)', fontWeight: 700,
-                  color: '#1a1a1a', letterSpacing: '0.1em',
-                }}>
-                  {endingKeywords[0]}
-                </span>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <div style={{ width: 18, height: 1, background: '#c44b3c' }} />
-                  <span style={{
-                    fontFamily: 'var(--font-mono)', fontSize: 'clamp(10px, 2.5vw, 12px)',
-                    color: '#c44b3c', letterSpacing: '0.1em', fontWeight: 600,
-                  }}>
-                    {endingKeywords[1]}
-                  </span>
-                  <div style={{ width: 18, height: 1, background: '#c44b3c' }} />
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </div>
 
-        {/* 右 INTERVIEWER — 移动端收起 */}
-        <div style={{ flex: '1 1 180px', minWidth: 0, maxWidth: 360, display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {/* 右栏 INTERVIEWER — 移动端隐藏 */}
+        <div className="intro-side-right" style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingTop: 'clamp(20px, 5vh, 80px)' }}>
           <span style={{
             fontFamily: 'var(--font-mono)', fontSize: 'clamp(10px, 2vw, 11px)',
             color: '#b0aaa5', letterSpacing: '0.1em', paddingRight: 8, textAlign: 'right',
@@ -190,6 +158,54 @@ function FloatLayer({
           </AnimatePresence>
         </div>
       </div>
+
+      {/* ── 结尾关键词 ── */}
+      <AnimatePresence>
+        {endingKeywords && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            onAnimationComplete={() => { setTimeout(() => onSceneComplete(), 2500) }}
+            transition={{ duration: 1, delay: 1.0 }}
+            style={{
+              display: 'flex', flexDirection: 'column',
+              alignItems: 'center', gap: 'clamp(8px, 2vh, 12px)',
+              marginTop: 'clamp(12px, 3vh, 20px)',
+            }}
+          >
+            <span style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: 'clamp(18px, 5vw, 24px)', fontWeight: 700,
+              color: '#1a1a1a', letterSpacing: '0.1em',
+            }}>
+              {endingKeywords[0]}
+            </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <div style={{ width: 18, height: 1, background: '#c44b3c' }} />
+              <span style={{
+                fontFamily: 'var(--font-mono)', fontSize: 'clamp(10px, 2.5vw, 12px)',
+                color: '#c44b3c', letterSpacing: '0.1em', fontWeight: 600,
+              }}>
+                {endingKeywords[1]}
+              </span>
+              <div style={{ width: 18, height: 1, background: '#c44b3c' }} />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* 移动端可见的侧边栏隐藏 —— 通过 CSS 媒体查询 */}
+      <style>{`
+        @media (max-width: 700px) {
+          .intro-side-left,
+          .intro-side-right {
+            display: none !important;
+          }
+          .intro-phone-layout {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
     </div>
   )
 }

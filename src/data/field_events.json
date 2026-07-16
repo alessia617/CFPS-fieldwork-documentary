@@ -71,28 +71,6 @@
     },
 
     {
-      "id": "waiting_door",
-      "type": "social",
-      "trigger": {
-        "eligibleNodes": ["target_near", "east_housing", "west_old_area", "old_housing", "new_housing"],
-        "probability": 0.6,
-        "minStep": 5
-      },
-      "narrative": {
-        "title": "门前等待",
-        "body": "按照约定时间来到这里，但屋门暂时没有打开。",
-        "innerThought": "可能在地里，或者在邻居家。",
-        "afterThought": "访员站在门口，等了一会儿。这是田野调查中常见的时刻——等待。",
-        "journal": "到达受访户家。门暂时虚掩着。在门口等待的这几分钟，是访员与这个陌生村庄独处的时刻。"
-      },
-      "visual": {
-        "effect": "none",
-        "intensity": "none"
-      },
-      "duration": 5000
-    },
-
-    {
       "id": "dialect_confusion",
       "type": "social",
       "trigger": {

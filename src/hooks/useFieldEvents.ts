@@ -75,16 +75,7 @@ export function useFieldEvents() {
           triggeredRef.current.add(ev.id)
           cooldownRef.current = true
           setActiveEvent(ev)
-
-          // 自动关闭
-          setTimeout(() => {
-            setActiveEvent(null)
-            // 冷却期
-            setTimeout(() => {
-              cooldownRef.current = false
-            }, 2000)
-          }, ev.duration)
-
+          // 不再自动关闭——用户点击屏幕后才消失
           return ev
         }
       }

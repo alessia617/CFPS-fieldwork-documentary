@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useVillageExploration } from '../../hooks/useVillageExploration'
 import { useFieldEvents } from '../../hooks/useFieldEvents'
@@ -25,6 +25,8 @@ export function VillageSearch({ onComplete, onGiveUp, onInteractNpc }: VillageSe
   const [verifyResult, setVerifyResult] = useState<'idle' | 'checking' | 'not_here' | 'confirmed'>('idle')
   const [showFatigue, setShowFatigue] = useState(false)
   const [fatigueDismissed, setFatigueDismissed] = useState(false)
+  const [showWaitingDoor, setShowWaitingDoor] = useState(false)
+  const waitingTriggered = useRef(false)
 
   const handleMove = useCallback(
     (nodeId: string) => {
@@ -38,11 +40,17 @@ export function VillageSearch({ onComplete, onGiveUp, onInteractNpc }: VillageSe
     [moveTo, tryTrigger, steps, currentNode, weather.eventModifier],
   )
 
-  // 验证确认后延迟跳转
+  // 验证确认 30% 触发门前等待事件 — 延迟跳转
   useEffect(() => {
     if (verifyResult === 'confirmed') {
-      const t = setTimeout(() => onComplete(), 3000)
-      return () => clearTimeout(t)
+      if (!waitingTriggered.current && Math.random() < 0.3) {
+        waitingTriggered.current = true
+        setShowWaitingDoor(true)
+        // 等待事件结束（用户点击关闭）后再延迟跳转
+      } else {
+        const t = setTimeout(() => onComplete(), 3000)
+        return () => clearTimeout(t)
+      }
     }
   }, [verifyResult, onComplete])
 
@@ -89,6 +97,12 @@ export function VillageSearch({ onComplete, onGiveUp, onInteractNpc }: VillageSe
     setFatigueDismissed(true)
   }
 
+  const handleWaitingDoorDismiss = () => {
+    setShowWaitingDoor(false)
+    // 关闭后延迟跳转到 Ending
+    setTimeout(() => onComplete(), 2500)
+  }
+
   const isDeadEnd = currentNode.type === 'empty' || currentNode.type === 'natural_space'
 
   return (
@@ -101,6 +115,27 @@ export function VillageSearch({ onComplete, onGiveUp, onInteractNpc }: VillageSe
 
       {/* 耐心耗尽弹窗 */}
       {showFatigue && <FatigueOverlay onDismiss={handleFatigueDismiss} onGiveUp={onGiveUp} steps={steps} />}
+
+      {/* 门前等待事件 — 确认目标后30%概率触发 */}
+      {showWaitingDoor && (
+        <FieldEventOverlay
+          event={{
+            id: 'waiting_door',
+            type: 'social',
+            trigger: { eligibleNodes: [], probability: 0, minStep: 0 },
+            narrative: {
+              title: '门前等待',
+              body: '按照约定时间来到这里，但屋门暂时没有打开。',
+              innerThought: '可能在地里，或者在邻居家。',
+              afterThought: '访员站在门口，等了一会儿。这是田野调查中常见的时刻——等待。',
+              journal: '到达受访户家。门暂时虚掩着。在门口等待的这几分钟，是访员与这个陌生村庄独处的时刻。',
+            },
+            visual: { effect: 'none', intensity: 'none' },
+            duration: 5000,
+          }}
+          onDismiss={handleWaitingDoorDismiss}
+        />
+      )}
 
       {/* 遮罩 */}
       <div style={{ position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none',
