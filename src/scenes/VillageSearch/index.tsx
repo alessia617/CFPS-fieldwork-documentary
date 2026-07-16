@@ -229,7 +229,7 @@ function InteractionLayer({
         )}
         {verifyResult === 'confirmed' && (
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, color: '#6b8a5a', background: 'rgba(0,0,0,0.5)', padding: '12px 20px', borderRadius: 2, alignSelf: 'center', backdropFilter: 'blur(4px)' }}>
+            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '.clamp(8px, 2vw, 14px)', color: '#6b8a5a', background: 'rgba(0,0,0,0.5)', padding: '12px 20px', borderRadius: 2, alignSelf: 'center', backdropFilter: 'blur(4px)' }}>
             <div style={{ width: 14, height: 1, background: '#6b8a5a' }} />
             <span style={{ fontFamily: 'var(--font-display)', fontSize: 16, fontWeight: 700, letterSpacing: '0.06em' }}>确认了，这就是受访户。</span>
             <div style={{ width: 14, height: 1, background: '#6b8a5a' }} />
@@ -350,11 +350,11 @@ function CandidatePanel({
 
       <div style={{ display: 'flex', gap: 10 }}>
         <motion.button onClick={onApproach} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
-          style={{ flex: 1, padding: 'clamp(12px, 3vw, 14px) clamp(12px, 3vw, 16px)', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: 2, color: '#fff', fontSize: 'clamp(13px, 3.5vw, 16px)', fontWeight: 500, cursor: 'pointer', fontFamily: 'var(--font-body)' }}>
+          style={{ flex: 1, padding: 'clamp(12px, 3vw, 14px) clamp(12px, 3vw, 16px)', minHeight: '44px', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: 2, color: '#fff', fontSize: 'clamp(13px, 3.5vw, 16px)', fontWeight: 500, cursor: 'pointer', fontFamily: 'var(--font-body)' }}>
           走近看看
         </motion.button>
         <motion.button onClick={onCallConfirm} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
-          style={{ flex: 1, padding: 'clamp(12px, 3vw, 14px) clamp(12px, 3vw, 16px)', background: 'rgba(196, 75, 60, 0.15)', border: '1px solid rgba(196, 75, 60, 0.25)', borderRadius: 2, color: '#fff', fontSize: 'clamp(13px, 3.5vw, 16px)', fontWeight: 500, cursor: 'pointer', fontFamily: 'var(--font-body)' }}>
+          style={{ flex: 1, padding: 'clamp(12px, 3vw, 14px) clamp(12px, 3vw, 16px)', minHeight: '44px', background: 'rgba(196, 75, 60, 0.15)', border: '1px solid rgba(196, 75, 60, 0.25)', borderRadius: 2, color: '#fff', fontSize: 'clamp(13px, 3.5vw, 16px)', fontWeight: 500, cursor: 'pointer', fontFamily: 'var(--font-body)' }}>
           打电话确认
         </motion.button>
       </div>
@@ -430,7 +430,7 @@ function DirectionChoices({ activePaths, blockedPaths, visited, onMove }: { acti
             initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }}
             whileHover={!bl ? { scale: 1.02, backgroundColor: 'rgba(255,255,255,0.12)' } : undefined}
             whileTap={!bl ? { scale: 0.98 } : undefined} transition={{ duration: 0.25 }}
-            style={{ display: 'flex', alignItems: 'center', gap: 10, padding: 'clamp(12px, 3vw, 14px) clamp(12px, 3vw, 16px)',
+            style={{ display: 'flex', alignItems: 'center', gap: '.clamp(8px, 2vw, 14px)', padding: 'clamp(12px, 3vw, 14px) clamp(12px, 3vw, 16px)', minHeight: '44px',
               background: bl ? 'rgba(0,0,0,0.3)' : 'rgba(0,0,0,0.45)', backdropFilter: 'blur(6px)',
               border: `1px solid ${bl ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.1)'}`, borderRadius: 2,
               cursor: bl ? 'default' : 'pointer', textAlign: 'left' as const, fontFamily: 'inherit',

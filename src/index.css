@@ -1,122 +1,43 @@
 @import "tailwindcss";
 
 /* ============================================
-   CFPS-Web — 构成主义视觉系统 Phase 1
-   设计令牌 + 全局样式
+   CFPS-Web — Mobile First 响应式系统
    ============================================ */
 
 /* ── Tailwind v4 @theme ── */
 @theme {
-  /* ═══ 色彩 ═══ */
-  --color-canvas: #f5f0e8;
-  --color-canvas-alt: #ede6da;
-  --color-canvas-dark: #e0d8c8;
-
-  --color-ink-primary: #1a1a1a;
-  --color-ink-secondary: #4a4540;
-  --color-ink-tertiary: #7a7570;
-  --color-ink-disabled: #b0aaa5;
-
-  --color-earth-light: #f0ebe0;
-  --color-earth: #e8e0d0;
-  --color-earth-dark: #d4c8b0;
-
-  --color-brick: #c44b3c;
-  --color-brick-light: #d96e5e;
-  --color-brick-dark: #9e372b;
-
-  --color-field-green: #6b8a5a;
-  --color-field-green-light: #8aa678;
-  --color-field-yellow: #c4a44a;
-  --color-field-yellow-light: #d4bc6e;
-
-  --color-accent-info: #4a7a9e;
-  --color-accent-success: #5a8a5a;
-  --color-accent-warning: #c4944a;
-  --color-accent-error: #c44b3c;
-
-  --color-surface-phone: #e8e4dc;
-  --color-surface-card: #faf7f0;
-  --color-surface-overlay: rgba(26, 26, 26, 0.6);
-  --color-surface-glass: rgba(245, 240, 232, 0.85);
-
-  --color-border-light: #d8d0c4;
-  --color-border: #c0b8a8;
-  --color-border-dark: #a09888;
-
-  /* ═══ 字体族 ═══ */
+  --color-canvas: #f5f0e8; --color-canvas-alt: #ede6da; --color-canvas-dark: #e0d8c8;
+  --color-ink-primary: #1a1a1a; --color-ink-secondary: #4a4540;
+  --color-ink-tertiary: #7a7570; --color-ink-disabled: #b0aaa5;
+  --color-earth-light: #f0ebe0; --color-earth: #e8e0d0; --color-earth-dark: #d4c8b0;
+  --color-brick: #c44b3c; --color-brick-light: #d96e5e; --color-brick-dark: #9e372b;
+  --color-field-green: #6b8a5a; --color-field-green-light: #8aa678;
+  --color-field-yellow: #c4a44a; --color-field-yellow-light: #d4bc6e;
+  --color-accent-info: #4a7a9e; --color-accent-success: #5a8a5a; --color-accent-warning: #c4944a; --color-accent-error: #c44b3c;
+  --color-surface-phone: #e8e4dc; --color-surface-card: #faf7f0;
+  --color-surface-overlay: rgba(26, 26, 26, 0.6); --color-surface-glass: rgba(245, 240, 232, 0.85);
+  --color-border-light: #d8d0c4; --color-border: #c0b8a8; --color-border-dark: #a09888;
   --font-display: 'Noto Serif SC', 'Source Han Serif SC', 'SimSun', serif;
   --font-heading: 'Noto Sans SC', 'Source Han Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
   --font-body: 'Noto Sans SC', 'Source Han Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
   --font-dialogue: 'ZCOOL XiaoWei', 'KaiTi', 'STKaiti', 'AR PL UKai CN', serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', 'Monaco', monospace;
-
-  /* ═══ 字号 ═══ */
-  --text-display-xl: clamp(40px, 8vw, 72px);
-  --text-display-lg: clamp(32px, 6vw, 56px);
-  --text-display-md: clamp(24px, 4vw, 40px);
-  --text-heading-xl: 28px;
-  --text-heading-lg: 22px;
-  --text-heading-md: 18px;
-  --text-body-lg: 18px;
-  --text-body-md: 16px;
-  --text-body-sm: 14px;
-  --text-dialogue-lg: 20px;
-  --text-dialogue-md: 17px;
-  --text-dialogue-sm: 15px;
-  --text-mono-md: 15px;
-  --text-mono-sm: 13px;
-  --text-caption: 12px;
-
-  /* ═══ 字重 ═══ */
-  --font-weight-regular: 400;
-  --font-weight-medium: 500;
-  --font-weight-semibold: 600;
-  --font-weight-bold: 700;
-  --font-weight-black: 900;
-
-  /* ═══ 行高 ═══ */
-  --leading-display: 1.15;
-  --leading-heading: 1.25;
-  --leading-body: 1.65;
-  --leading-dialogue: 1.8;
-  --leading-mono: 1.4;
-  --leading-caption: 1.4;
-
-  /* ═══ 字距 ═══ */
-  --tracking-display: -0.02em;
-  --tracking-heading: -0.01em;
-  --tracking-body: 0.01em;
-  --tracking-dialogue: 0.02em;
-  --tracking-mono: 0.04em;
-  --tracking-caption: 0.04em;
-
-  /* ═══ 阴影 ═══ */
+  --text-display-xl: clamp(40px, 8vw, 72px); --text-display-lg: clamp(32px, 6vw, 56px); --text-display-md: clamp(24px, 4vw, 40px);
+  --text-heading-xl: 28px; --text-heading-lg: 22px; --text-heading-md: 18px;
+  --text-body-lg: 18px; --text-body-md: 16px; --text-body-sm: 14px;
+  --text-dialogue-lg: 20px; --text-dialogue-md: 17px; --text-dialogue-sm: 15px;
+  --text-mono-md: 15px; --text-mono-sm: 13px; --text-caption: 12px;
+  --font-weight-regular: 400; --font-weight-medium: 500; --font-weight-semibold: 600; --font-weight-bold: 700; --font-weight-black: 900;
+  --leading-display: 1.15; --leading-heading: 1.25; --leading-body: 1.65; --leading-dialogue: 1.8; --leading-mono: 1.4; --leading-caption: 1.4;
+  --tracking-display: -0.02em; --tracking-heading: -0.01em; --tracking-body: 0.01em; --tracking-dialogue: 0.02em; --tracking-mono: 0.04em; --tracking-caption: 0.04em;
   --shadow-phone: 0 8px 32px rgba(26, 26, 26, 0.25), 0 2px 8px rgba(26, 26, 26, 0.12);
   --shadow-npc-card: 0 2px 12px rgba(26, 26, 26, 0.08), 0 1px 3px rgba(26, 26, 26, 0.06);
-  --shadow-npc-card-hover: 0 4px 20px rgba(26, 26, 26, 0.12), 0 2px 6px rgba(26, 26, 26, 0.08);
-  --shadow-button: 0 1px 3px rgba(26, 26, 26, 0.12);
-  --shadow-button-hover: 0 4px 12px rgba(26, 26, 26, 0.18);
-  --shadow-button-active: inset 0 1px 3px rgba(26, 26, 26, 0.2);
-  --shadow-bubble: 0 1px 4px rgba(26, 26, 26, 0.06);
-  --shadow-skill-hover: 0 4px 16px rgba(196, 75, 60, 0.25);
-  --shadow-map-node: 0 2px 8px rgba(26, 26, 26, 0.12);
-  --shadow-map-node-visited: 0 1px 4px rgba(26, 26, 26, 0.08);
-
-  /* ═══ 圆角 ═══ */
-  --radius-xs: 2px;
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 16px;
-  --radius-xl: 20px;
-  --radius-full: 9999px;
+  --radius-xs: 2px; --radius-sm: 4px; --radius-md: 8px; --radius-lg: 16px; --radius-xl: 20px; --radius-full: 9999px;
 }
 
 /* ============================================
-   全局基础样式
+   全局基础
    ============================================ */
-
-/* ── CSS 自定义属性（供 JS 读取） ── */
 :root {
   --font-display: 'Noto Serif SC', 'Source Han Serif SC', 'SimSun', serif;
   --font-heading: 'Noto Sans SC', 'Source Han Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
@@ -125,160 +46,81 @@
   --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', 'Monaco', monospace;
 }
 
-/* ── 盒模型全局重置 ── */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+*, *::before, *::after { box-sizing: border-box; }
 
-/* ── 根元素 ── */
 html {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-  /* 防止 iOS 横屏字体缩放 */
-  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility; -webkit-text-size-adjust: 100%;
 }
 
-/* ── body ── */
 body {
-  margin: 0;
-  padding: 0;
-  font-family: var(--font-body);
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.65;
-  letter-spacing: 0.01em;
-  color: #1a1a1a;
-  background-color: #f5f0e8;
-  /* 禁止移动端橡皮筋效果破坏沉浸感 */
-  overscroll-behavior: none;
-  overflow-x: hidden;
+  margin: 0; padding: 0;
+  font-family: var(--font-body); font-size: 16px; font-weight: 400;
+  line-height: 1.65; letter-spacing: 0.01em;
+  color: #1a1a1a; background-color: #f5f0e8;
+  overscroll-behavior: none; overflow-x: hidden;
 }
 
-/* ── 应用容器 ── */
 #root {
-  width: 100%;
-  max-width: 100%;
-  min-height: 100svh;
-  /* 构成主义：禁用居中对齐，由场景自行决定布局 */
-  display: flex;
-  flex-direction: column;
+  width: 100%; max-width: 100%; min-height: 100svh;
+  display: flex; flex-direction: column;
 }
 
-/* ── 链接重置 ── */
-a {
-  color: inherit;
-  text-decoration: none;
+a { color: inherit; text-decoration: none; }
+
+button { font-family: inherit; cursor: pointer; border: none; background: none; padding: 0; }
+
+ul, ol { list-style: none; padding: 0; margin: 0; }
+
+img { display: block; max-width: 100%; object-fit: cover; }
+
+::selection { background-color: rgba(196, 75, 60, 0.2); color: #1a1a1a; }
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #c0b8a8; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #a09888; }
+
+@keyframes blink-cursor { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+:focus-visible { outline: 2px solid #c44b3c; outline-offset: 2px; }
+
+/* ============================================
+   Mobile First 触控 + 安全区域 + 性能
+   ============================================ */
+button, [role="button"] { min-height: 44px; min-width: 44px; }
+
+/* 安全区域（iPhone 刘海/底部栏） */
+#root {
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
 }
 
-/* ── 按钮重置 ── */
-button {
-  font-family: inherit;
-  cursor: pointer;
-  border: none;
-  background: none;
-  padding: 0;
-}
-
-/* ── 列表重置 ── */
-ul, ol {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-/* ── 图片 ── */
-img {
-  display: block;
-  max-width: 100%;
-}
-
-/* ── 选中颜色 ── */
-::selection {
-  background-color: rgba(196, 75, 60, 0.2);
-  color: #1a1a1a;
-}
-
-/* ── 滚动条（构成主义极简风格） ── */
-::-webkit-scrollbar {
-  width: 4px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #c0b8a8;
-  border-radius: 2px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #a09888;
-}
-
-/* ── 打字机光标闪烁 ── */
-@keyframes blink-cursor {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
-/* ── 焦点可见（无障碍） ── */
-:focus-visible {
-  outline: 2px solid #c44b3c;
-  outline-offset: 2px;
-}
-
-/* ── 最小触控区域 ── */
-button, [role="button"], a {
-  min-height: 44px;
-  min-width: 44px;
-}
-@media (pointer: coarse) {
-  button, [role="button"], a {
-    min-height: 44px;
-    min-width: 44px;
-  }
-}
-
-/* ── 移动端文字最小16px（防止iOS缩放） ── */
-@media (max-width: 768px) {
-  body {
-    font-size: 16px;
-  }
-  input, textarea, select {
-    font-size: 16px !important;
-  }
-}
-
-/* ── 图片容器 ── */
-img, video {
-  object-fit: cover;
-}
-
-/* ── 移动端减少阴影+blur（性能） ── */
-@media (max-width: 768px) {
+/* ═══ 移动端性能：减阴影 减blur 减滤镜 ═══ */
+@media (max-width: 640px) {
   * {
-    --shadow-phone: 0 4px 16px rgba(0,0,0,0.2) !important;
+    --shadow-phone: 0 3px 12px rgba(0,0,0,0.18) !important;
+    --shadow-npc-card: 0 1px 4px rgba(0,0,0,0.04) !important;
   }
+  img { filter: none !important; }
 }
 
-/* ── 横屏适配 ── */
+/* ═══ 手机端禁止 iOS 缩放 ═══ */
+@media (max-width: 640px) {
+  input, textarea, select { font-size: 16px !important; }
+}
+
+/* ═══ 横屏适配 ═══ */
 @media (orientation: landscape) and (max-height: 500px) {
-  #root {
-    min-height: 100vh;
-  }
+  #root { min-height: 100vh; }
 }
 
-/* ── 减少动画偏好 ── */
+/* ═══ 减少动画偏好 ═══ */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important; animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
 }

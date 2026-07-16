@@ -13,26 +13,24 @@ export interface PhoneProps {
   tilt?: number
 }
 
-export function Phone({ children, tilt = 8 }: PhoneProps) {
+export function Phone({ children }: PhoneProps) {
   return (
     <motion.div
-      initial={{ rotate: 30, scale: 0.6, opacity: 0, y: 80 }}
-      animate={{ rotate: tilt, scale: 1, opacity: 1, y: 0 }}
-      transition={{ duration: 1.4, delay: 0.2, type: 'spring', stiffness: 55, damping: 14 }}
-      style={{ perspective: '800px' }}
+      initial={{ rotate: 15, scale: 0.75, opacity: 0, y: 40 }}
+      animate={{ rotate: 0, scale: 1, opacity: 1, y: 0 }}
+      transition={{ duration: 1.0, delay: 0.2, type: 'spring', stiffness: 70, damping: 14 }}
+      style={{ margin: '0 auto' }}
     >
-      {/* 手机外壳 */}
+      {/* 手机外壳 — 移动端 80vw max, 桌面 290px fixed, 轻阴影 */}
       <div
         style={{
-          width: 'clamp(250px, 68vw, 290px)',
+          width: 'min(80vw, 290px)',
           background: '#26211c',
           borderRadius: 28,
           padding: 10,
           boxShadow:
-            '0 12px 40px rgba(0,0,0,0.35), 0 3px 10px rgba(0,0,0,0.2), inset 0 0 0 1px rgba(255,255,255,0.04)',
+            '0 3px 12px rgba(0,0,0,0.20), 0 1px 4px rgba(0,0,0,0.12)',
           position: 'relative',
-          transform: 'rotateX(3deg) rotateY(-3deg)',
-          transformStyle: 'preserve-3d',
           margin: '0 auto',
         }}
       >
@@ -74,10 +72,10 @@ export function Phone({ children, tilt = 8 }: PhoneProps) {
       {/* 地面阴影 */}
       <div
         style={{
-          width: 240,
-          height: 24,
-          margin: '20px auto 0',
-          background: 'radial-gradient(ellipse, rgba(0,0,0,0.18) 0%, transparent 70%)',
+          width: 'min(80%, 240px)',
+          height: 16,
+          margin: '12px auto 0',
+          background: 'radial-gradient(ellipse, rgba(0,0,0,0.12) 0%, transparent 70%)',
           borderRadius: '50%',
         }}
       />
