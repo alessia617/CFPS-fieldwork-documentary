@@ -55,7 +55,7 @@ export function Phone({ children }: PhoneProps) {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.15 }}
         style={{
-          width: '100%', minHeight: '100svh',
+          width: '100%', height: '100svh',
           background: '#f5f0e8',
           display: 'flex', flexDirection: 'column',
         }}
