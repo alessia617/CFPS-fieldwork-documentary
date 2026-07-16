@@ -64,7 +64,7 @@ export function IntroPhone({ onComplete }: IntroPhoneProps) {
 
         {/* 手机 — 始终居中 */}
         <div style={{ flexShrink: 0, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <Phone tilt={6} />
+          <Phone />
         </div>
 
         {/* 右气泡 — 移动端隐藏 */}
